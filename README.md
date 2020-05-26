@@ -95,8 +95,9 @@ The principle here is: "Each test must be atomic". So, It must have run in a com
 ### Step by Step (LINUX)
 1. Clone the repository: **git clone -b master-sync https://github.com/wmaduro/clean-architecture-study.git**
 2. Jump into the project folder: **cd clean-architecture-study**
-3. Compile using built-in maven  (notice that all unit tests will be triggered): **./mvnw clean compile package**
-4. Run: **java -cp 'target/lib/*:target/clean-architecture-study-0.0.1-SNAPSHOT-jar-with-dependencies.jar' com.maduro.poker.ClenArchitectureStudyApplication**
+3. Change permission: **chmod +x mvnw**
+4. Compile using built-in maven  (notice that all unit tests will be triggered): **./mvnw clean compile package**
+5. Run: **java -cp 'target/lib/*:target/clean-architecture-study-0.0.1-SNAPSHOT-jar-with-dependencies.jar' com.maduro.poker.ClenArchitectureStudyApplication**
 
 
 Optionally, you can import the project in Eclipse 4+ with maven plugins installed. 
