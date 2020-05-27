@@ -3,41 +3,84 @@ package com.maduro.poker.unit.file;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Field;
 
+import com.maduro.poker.base.queue.facade.IQueue;
+import com.maduro.poker.base.service.BaseServiceFull;
 import com.maduro.poker.domain.HandDataModel;
-import com.maduro.poker.unit.file.helper.FileParserServiceHelper;
-import com.maduro.poker.util.Utils;
+import com.maduro.poker.unit.file.queue.FileParserQueue;
+import com.maduro.poker.unit.folder.FolderMonitorServiceDTO;
 
-public class FileParserService {
+public class FileParserService extends BaseServiceFull<FolderMonitorServiceDTO, FileParserServiceDTO> {
 
-	private String filePath;
-	public FileParserService(String filePath) {
-		this.filePath = filePath ;
+	public FileParserService(IQueue<FolderMonitorServiceDTO> subscriber) {
+		super(subscriber);
+		this.queuePublisher = new FileParserQueue();
 	}
-	public FileParserServiceDTO process() throws Exception {
 
-		FileParserServiceDTO fileParserServiceDTO = new FileParserServiceDTO();
+	@Override
+	public FileParserServiceDTO processSubscriber(FolderMonitorServiceDTO subscriber) {
+		
+		FileParserServiceDTO fileParserDTO = new FileParserServiceDTO();
 
+		final String HEAD = "\"game\"";
+		BufferedReader br = null;
 		try {
 
-			BufferedReader br = new BufferedReader(new FileReader(FileParserServiceHelper.getFileFromPath(filePath)));
+			br = new BufferedReader(new FileReader(subscriber.getFile()));
 
 			String line;
 			while ((line = br.readLine()) != null) {
-				if (line.startsWith(Utils.FILE_HEAD_START_WITH)) {
+				if (line.startsWith(HEAD)) {
 					continue;
 				}
-				HandDataModel handDataModel = Utils.parseLine(line);
-				fileParserServiceDTO.addHandDataModel(handDataModel);
+				HandDataModel handDataModel = parseLine(line);
+				if (handDataModel.hasAllValidFields()) {
+					fileParserDTO.addHandDataModel(handDataModel);
+				}
 			}
 
-			br.close();
-
-		} catch (IOException ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
-
-		return fileParserServiceDTO;
+		return fileParserDTO;
 	}
 
+	private HandDataModel parseLine(String line) throws Exception {
+		String[] fieldsFromFile = line.split(",");
+		return (HandDataModel) setObjectFieldFromArray(HandDataModel.class, fieldsFromFile);
+	};
+
+	private <T> Object setObjectFieldFromArray(Class<T> clazz, String[] array) throws Exception {
+
+		Object object = clazz.newInstance();
+		Field[] fields = clazz.getDeclaredFields();
+		for (int i = 0; i < fields.length; i++) {
+
+			if (array.length > i) {
+
+				Field field = fields[i];
+				boolean accessible = field.isAccessible();
+				field.setAccessible(true);
+
+				String value = array[i];
+				if (!field.getName().equals("user_name")) {
+					value = value.replace("\"", "").replace(" ", "");
+				}
+				field.set(object, value);
+
+				field.setAccessible(accessible);
+			}
+		}
+		return object;
+
+	}
 }

@@ -1,12 +1,15 @@
 package com.maduro.poker;
 
-import java.time.Duration;
-import java.time.Instant;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import com.maduro.poker.enums.AggressivityBehaviorEnum;
-import com.maduro.poker.unit.MainSyncService;
 import com.maduro.poker.unit.evaluator.HandEvaluatorService;
 import com.maduro.poker.unit.file.FileParserService;
+import com.maduro.poker.unit.folder.FolderMonitorService;
 import com.maduro.poker.unit.mapper.HandMapperService;
 import com.maduro.poker.unit.statistic.StatisticHandTypeService;
 import com.maduro.poker.unit.statistic.view.StatisticHandTypeViewerSevice;
@@ -14,29 +17,34 @@ import com.maduro.poker.unit.statistic.view.StatisticHandTypeViewerSevice;
 public class ClenArchitectureStudyApplication {
 
 	public static void main(String[] args) {
+		new ClenArchitectureStudyApplication();
+	}
 
+	public ClenArchitectureStudyApplication() {
+
+		Path monitoredFolder = Paths.get("/home/maduro/pokerstas-files/all-in-statistic/");
+
+		FolderMonitorService folderMonitorService = new FolderMonitorService(monitoredFolder);
+		FileParserService fileParserService = new FileParserService(folderMonitorService.getQueuePublisher());
+		HandMapperService handMapperService = new HandMapperService(fileParserService.getQueuePublisher());
+
+		HandEvaluatorService handEvaluatorService = new HandEvaluatorService(handMapperService.getQueuePublisher(),
+				"wmaduro", AggressivityBehaviorEnum.RAISER);
+
+		StatisticHandTypeService statisticHandTypeService = new StatisticHandTypeService(
+				handEvaluatorService.getQueuePublisher());
+		StatisticHandTypeViewerSevice statisticHandTypeViewerSevice = new StatisticHandTypeViewerSevice(
+				statisticHandTypeService.getQueuePublisher());
+
+		final Runnable[] services = { folderMonitorService, fileParserService, handMapperService, handEvaluatorService,
+				statisticHandTypeViewerSevice, };
+
+		final ExecutorService executorService = Executors.newCachedThreadPool();
 		try {
-			System.out.println("running... please, wait...");
-			
-			Instant start = Instant.now();
-			
-			String mainPlayer = "wmaduro";
-			AggressivityBehaviorEnum aggressivityBehaviorEnum = AggressivityBehaviorEnum.RAISER;
-			String filePath = "./sample-files/all-in.csv";
-			
-			new MainSyncService().process(
-					new FileParserService(filePath), 
-					new HandMapperService(),
-					new HandEvaluatorService(mainPlayer, aggressivityBehaviorEnum), 
-					new StatisticHandTypeService(), 
-					new StatisticHandTypeViewerSevice()
-			);
-
-			System.out.println("done: " + Duration.between(start, Instant.now()).getSeconds() + " sec");
-
-		} catch (Exception e) {
-			e.printStackTrace();
-
+			Arrays.asList(services).stream().forEach(executorService::submit);
+		} finally {
+			System.out.println("processing... ");
+			executorService.shutdown();
 		}
 
 	}

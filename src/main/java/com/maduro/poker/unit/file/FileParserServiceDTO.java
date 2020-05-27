@@ -15,4 +15,12 @@ public class FileParserServiceDTO {
 		this.handDataModelList.add(handDataModel);
 	}
 	
+	@Override
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		this.handDataModelList.stream().forEach(handDataModel -> {
+			sb.append(handDataModel.getGame() + " | " + handDataModel.getHand() +"\n");
+		});
+		return sb.toString();
+	}
 }

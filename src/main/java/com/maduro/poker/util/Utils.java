@@ -37,4 +37,8 @@ public class Utils {
 		String[] fieldsFromFile = line.split(Utils.FIELD_LINE_SEPARATOR);
 		return (HandDataModel) Utils.setObjectFieldFromArray(HandDataModel.class, fieldsFromFile);
 	};
+	
+	public static String removeFileExtension(String fileName) {
+		return fileName.replaceFirst("[.][^.]+$", "");
+	}
 }

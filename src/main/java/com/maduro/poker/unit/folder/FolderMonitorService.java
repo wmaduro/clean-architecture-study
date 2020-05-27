@@ -1,0 +1,95 @@
+package com.maduro.poker.unit.folder;
+
+import java.io.File;
+import java.nio.file.DirectoryStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardWatchEventKinds;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
+
+import com.maduro.poker.base.service.BaseServicePublisher;
+import com.maduro.poker.unit.folder.queue.FolderMonitorQueue;
+import com.maduro.poker.util.Utils;
+
+public class FolderMonitorService extends BaseServicePublisher<FolderMonitorServiceDTO> {
+	
+	private Path monitoredFolder;
+	
+	public FolderMonitorService(Path monitoredFolder) {
+		super();
+		this.queuePubliser = new FolderMonitorQueue();
+		this.monitoredFolder =monitoredFolder;
+	}
+	
+	@Override
+	public void run() {
+		super.run();
+		monitorFolder(this.monitoredFolder);
+	}
+	
+	private void monitorFolder(Path monitoredFolder) {
+		try {
+
+			WatchService watchService = FileSystems.getDefault().newWatchService();
+			monitoredFolder.register(watchService, StandardWatchEventKinds.ENTRY_CREATE);
+
+			while (true) {
+
+				processFolder(monitoredFolder);
+
+				WatchKey watchKey = watchService.take();
+				watchKey.pollEvents();
+
+				if (!watchKey.reset()) {
+					break;
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void processFolder(Path monitoredFolder) throws Exception {
+
+		String MONITORED_EXTENSTIONS = "*.{csv}";
+
+		DirectoryStream<Path> directoryStream = Files.newDirectoryStream(monitoredFolder, MONITORED_EXTENSTIONS);
+		try {
+
+			for (Path path : directoryStream) {
+
+				try {
+
+					File renamedFile = renameFile(path);
+					publish(new FolderMonitorServiceDTO().addFile(renamedFile));
+
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw e;
+				}
+			}
+
+		} finally {
+			directoryStream.close();
+		}
+	}
+
+	private File renameFile(Path path) throws Exception {
+
+		String IMPORTING_EXTENSION = ".importing";
+
+		String newFileName = Utils.removeFileExtension(path.toFile().getAbsolutePath()) + IMPORTING_EXTENSION;
+		File newImportFile = new File(newFileName);
+		if (!path.toFile().renameTo(newImportFile)) {
+			throw new Exception("Error while renaming file " + path.getFileName());
+		}
+		return newImportFile;
+
+	}
+
+	
+
+}

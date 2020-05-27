@@ -4,39 +4,53 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.maduro.poker.base.queue.facade.IQueue;
+import com.maduro.poker.base.service.BaseServiceFull;
 import com.maduro.poker.domain.CriticalHandOutcomeEnum;
 import com.maduro.poker.domain.HandDataModel;
 import com.maduro.poker.enums.AggressivityBehaviorEnum;
 import com.maduro.poker.unit.evaluator.handdata.HandDataService;
+import com.maduro.poker.unit.evaluator.queue.HandEvaluatorQueue;
 import com.maduro.poker.unit.mapper.HandMapperServiceDTO;
 
-public class HandEvaluatorService {
+public class HandEvaluatorService extends BaseServiceFull<HandMapperServiceDTO, HandEvaluatorServiceDTO> {
 
-	private String mainPlayerNameFilter = null;
-	private AggressivityBehaviorEnum aggressivityBehaviorFilter = null;
-
+	private String mainPlayerName = null;
+	private AggressivityBehaviorEnum  aggressivityBehaviorEnum= null;
 	private static final String ACTION_PRE_FLOP = "PRE_FLOP";
 
-	public HandEvaluatorService(String mainPlayerNameFilter, AggressivityBehaviorEnum aggressivityBehaviorFilter) {
-		this.mainPlayerNameFilter = mainPlayerNameFilter;
-		this.aggressivityBehaviorFilter = aggressivityBehaviorFilter;
+	
+	public HandEvaluatorService(IQueue<HandMapperServiceDTO> subscriber, 
+			String mainPlayerName, 
+			AggressivityBehaviorEnum aggressivityBehaviorEnum ) {
+		super(subscriber);
+		
+		this.queuePublisher = new HandEvaluatorQueue();
+		
+		this.mainPlayerName = mainPlayerName;
+		this.aggressivityBehaviorEnum = aggressivityBehaviorEnum;
 	}
 
-	public HandEvaluatorServiceDTO process(HandMapperServiceDTO handMapperServiceDTO) throws Exception {
-
-		if (handMapperServiceDTO == null || handMapperServiceDTO.getHandDataModelMap() == null)
+	@Override
+	public HandEvaluatorServiceDTO processSubscriber(HandMapperServiceDTO subscriber) {
+		if (subscriber == null || subscriber.getHandDataModelMap() == null)
 			return null;
 
 		HandEvaluatorServiceDTO handEvaluatorServiceDTO = new HandEvaluatorServiceDTO();
 
-		for (Map.Entry<String, List<HandDataModel>> entry : handMapperServiceDTO.getHandDataModelMap().entrySet()) {
+		for (Map.Entry<String, List<HandDataModel>> entry : subscriber.getHandDataModelMap().entrySet()) {
 
 			if (!isHandProcessable(entry)) {
 				continue;
 			}
 
-			CriticalHandOutcomeEnum criticalHandOutcomeEnum = new HandDataService().analyzeHands(entry.getValue());
-			handEvaluatorServiceDTO.addGameCrititalHandDataModel(entry.getKey(), entry.getValue(), criticalHandOutcomeEnum);
+			try {
+				CriticalHandOutcomeEnum criticalHandOutcomeEnum = new HandDataService().analyzeHands(entry.getValue());
+				handEvaluatorServiceDTO.addGameCrititalHandDataModel(entry.getKey(), entry.getValue(),
+						criticalHandOutcomeEnum);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
 		}
 		return handEvaluatorServiceDTO;
@@ -63,22 +77,22 @@ public class HandEvaluatorService {
 	}
 
 	private boolean checkIfPlayerExists(List<HandDataModel> handDataModelList) {
-		if (this.mainPlayerNameFilter == null) {
+		if (this.mainPlayerName == null) {
 			return true;
 		}
 		return handDataModelList.stream()
-				.anyMatch(handDataModel -> handDataModel.getUser_name().equals(this.mainPlayerNameFilter));
+				.anyMatch(handDataModel -> handDataModel.getUser_name().equals(this.mainPlayerName));
 	}
 
 	private boolean checkMainPlayerAggressityBehavior(List<HandDataModel> handDataModelList) {
 
-		if (this.mainPlayerNameFilter == null || this.aggressivityBehaviorFilter == null) {
+		if (this.mainPlayerName == null || this.mainPlayerName == null) {
 			return true;
 		}
 
 		return handDataModelList.stream()
-				.anyMatch(handDataModel -> handDataModel.getUser_name().equals(this.mainPlayerNameFilter)
-						&& handDataModel.getAction_pre_flop().equals(this.aggressivityBehaviorFilter.getValue()));
+				.anyMatch(handDataModel -> handDataModel.getUser_name().equals(this.mainPlayerName)
+						&& handDataModel.getAction_pre_flop().equals(this.aggressivityBehaviorEnum.getValue()));
 	}
 
 }
