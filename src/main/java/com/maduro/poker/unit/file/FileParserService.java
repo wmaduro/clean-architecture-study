@@ -5,29 +5,32 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Field;
 
-import com.maduro.poker.base.queue.facade.IQueue;
-import com.maduro.poker.base.service.BaseServiceFull;
+import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import com.maduro.poker.domain.HandDataModel;
-import com.maduro.poker.unit.file.queue.FileParserQueue;
+import com.maduro.poker.unit.base.BaseService;
 import com.maduro.poker.unit.folder.FolderMonitorServiceDTO;
 
-public class FileParserService extends BaseServiceFull<FolderMonitorServiceDTO, FileParserServiceDTO> {
+public class FileParserService extends BaseService {
 
-	public FileParserService(IQueue<FolderMonitorServiceDTO> subscriber) {
-		super(subscriber);
-		this.queuePublisher = new FileParserQueue();
+	public FileParserService(EventBus eventBus) {
+		super(eventBus);
 	}
 
-	@Override
-	public FileParserServiceDTO processSubscriber(FolderMonitorServiceDTO subscriber) {
-		
+	@Subscribe
+	public void stringEvent(FolderMonitorServiceDTO event) {
+		publish(process(event));
+	}
+
+	public FileParserServiceDTO process(FolderMonitorServiceDTO folderMonitorServiceDTO) {
+
 		FileParserServiceDTO fileParserDTO = new FileParserServiceDTO();
 
 		final String HEAD = "\"game\"";
 		BufferedReader br = null;
 		try {
-
-			br = new BufferedReader(new FileReader(subscriber.getFile()));
+			
+			br = new BufferedReader(new FileReader(folderMonitorServiceDTO.getFile()));
 
 			String line;
 			while ((line = br.readLine()) != null) {
@@ -83,4 +86,5 @@ public class FileParserService extends BaseServiceFull<FolderMonitorServiceDTO, 
 		return object;
 
 	}
+
 }

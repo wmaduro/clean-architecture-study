@@ -4,41 +4,39 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.maduro.poker.base.queue.facade.IQueue;
-import com.maduro.poker.base.service.BaseServiceFull;
+import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import com.maduro.poker.domain.CriticalHandOutcomeEnum;
 import com.maduro.poker.domain.HandDataModel;
 import com.maduro.poker.enums.AggressivityBehaviorEnum;
+import com.maduro.poker.unit.base.BaseService;
 import com.maduro.poker.unit.evaluator.handdata.HandDataService;
-import com.maduro.poker.unit.evaluator.queue.HandEvaluatorQueue;
 import com.maduro.poker.unit.mapper.HandMapperServiceDTO;
 
-public class HandEvaluatorService extends BaseServiceFull<HandMapperServiceDTO, HandEvaluatorServiceDTO> {
+public class HandEvaluatorService extends BaseService {
 
 	private String mainPlayerName = null;
-	private AggressivityBehaviorEnum  aggressivityBehaviorEnum= null;
+	private AggressivityBehaviorEnum aggressivityBehaviorEnum = null;
 	private static final String ACTION_PRE_FLOP = "PRE_FLOP";
 
-	
-	public HandEvaluatorService(IQueue<HandMapperServiceDTO> subscriber, 
-			String mainPlayerName, 
-			AggressivityBehaviorEnum aggressivityBehaviorEnum ) {
-		super(subscriber);
-		
-		this.queuePublisher = new HandEvaluatorQueue();
-		
+	@Subscribe
+	public void stringEvent(HandMapperServiceDTO event) {
+		publish(process(event));
+	}
+
+	public HandEvaluatorService(EventBus eventBus, String mainPlayerName, AggressivityBehaviorEnum aggressivityBehaviorEnum) {
+		super(eventBus);
 		this.mainPlayerName = mainPlayerName;
 		this.aggressivityBehaviorEnum = aggressivityBehaviorEnum;
 	}
 
-	@Override
-	public HandEvaluatorServiceDTO processSubscriber(HandMapperServiceDTO subscriber) {
-		if (subscriber == null || subscriber.getHandDataModelMap() == null)
+	public HandEvaluatorServiceDTO process(HandMapperServiceDTO handMapperServiceDTO) {
+		if (handMapperServiceDTO == null || handMapperServiceDTO.getHandDataModelMap() == null)
 			return null;
 
 		HandEvaluatorServiceDTO handEvaluatorServiceDTO = new HandEvaluatorServiceDTO();
 
-		for (Map.Entry<String, List<HandDataModel>> entry : subscriber.getHandDataModelMap().entrySet()) {
+		for (Map.Entry<String, List<HandDataModel>> entry : handMapperServiceDTO.getHandDataModelMap().entrySet()) {
 
 			if (!isHandProcessable(entry)) {
 				continue;

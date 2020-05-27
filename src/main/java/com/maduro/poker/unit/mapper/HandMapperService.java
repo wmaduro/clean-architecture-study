@@ -1,26 +1,29 @@
 package com.maduro.poker.unit.mapper;
 
-import com.maduro.poker.base.queue.facade.IQueue;
-import com.maduro.poker.base.service.BaseServiceFull;
+import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
+import com.maduro.poker.unit.base.BaseService;
 import com.maduro.poker.unit.file.FileParserServiceDTO;
-import com.maduro.poker.unit.mapper.queue.HandDataModelMapQueue;
 
-public class HandMapperService extends BaseServiceFull<FileParserServiceDTO, HandMapperServiceDTO> {
+public class HandMapperService extends BaseService {
 
-	public HandMapperService(IQueue<FileParserServiceDTO> subscriber) {
-		super(subscriber);
-		this.queuePublisher = new HandDataModelMapQueue();
+	public HandMapperService(EventBus eventBus) {
+		super(eventBus);
 	}
 
-	@Override
-	public HandMapperServiceDTO processSubscriber(FileParserServiceDTO subscriber) {
-		
-		if (subscriber == null || subscriber.getHandDataModelList() == null)
+	@Subscribe
+	public void stringEvent(FileParserServiceDTO event) {
+		publish(process(event));
+	}
+
+	public HandMapperServiceDTO process(FileParserServiceDTO fileParserServiceDTO) {
+
+		if (fileParserServiceDTO == null || fileParserServiceDTO.getHandDataModelList() == null)
 			return null;
 
 		HandMapperServiceDTO handMapperServiceDTO = new HandMapperServiceDTO();
 
-		subscriber.getHandDataModelList().forEach(handDataModel -> {
+		fileParserServiceDTO.getHandDataModelList().forEach(handDataModel -> {
 			handMapperServiceDTO.mapHandDataModel(handDataModel);
 		});
 

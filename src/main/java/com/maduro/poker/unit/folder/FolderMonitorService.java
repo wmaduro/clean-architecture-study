@@ -9,27 +9,26 @@ import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 
-import com.maduro.poker.base.service.BaseServicePublisher;
-import com.maduro.poker.unit.folder.queue.FolderMonitorQueue;
+import com.google.common.eventbus.EventBus;
+import com.maduro.poker.unit.base.BaseService;
 import com.maduro.poker.util.Utils;
 
-public class FolderMonitorService extends BaseServicePublisher<FolderMonitorServiceDTO> {
-	
+public class FolderMonitorService extends BaseService {
+
 	private Path monitoredFolder;
-	
-	public FolderMonitorService(Path monitoredFolder) {
-		super();
-		this.queuePubliser = new FolderMonitorQueue();
-		this.monitoredFolder =monitoredFolder;
+
+	public FolderMonitorService(EventBus eventBus, Path monitoredFolder) {
+		super(eventBus);
+		this.monitoredFolder = monitoredFolder;
 	}
-	
+
 	@Override
 	public void run() {
+		startMonitoringFolder();
 		super.run();
-		monitorFolder(this.monitoredFolder);
 	}
-	
-	private void monitorFolder(Path monitoredFolder) {
+
+	private void startMonitoringFolder() {
 		try {
 
 			WatchService watchService = FileSystems.getDefault().newWatchService();
@@ -57,19 +56,13 @@ public class FolderMonitorService extends BaseServicePublisher<FolderMonitorServ
 		String MONITORED_EXTENSTIONS = "*.{csv}";
 
 		DirectoryStream<Path> directoryStream = Files.newDirectoryStream(monitoredFolder, MONITORED_EXTENSTIONS);
+		
 		try {
 
 			for (Path path : directoryStream) {
+				File renamedFile = renameFile(path);
 
-				try {
-
-					File renamedFile = renameFile(path);
-					publish(new FolderMonitorServiceDTO().addFile(renamedFile));
-
-				} catch (Exception e) {
-					e.printStackTrace();
-					throw e;
-				}
+				publish(new FolderMonitorServiceDTO().addFile(renamedFile));
 			}
 
 		} finally {
@@ -89,7 +82,5 @@ public class FolderMonitorService extends BaseServicePublisher<FolderMonitorServ
 		return newImportFile;
 
 	}
-
-	
 
 }

@@ -1,24 +1,26 @@
 package com.maduro.poker.unit.statistic;
 
-import com.maduro.poker.base.queue.facade.IQueue;
-import com.maduro.poker.base.service.BaseServiceFull;
+import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
+import com.maduro.poker.unit.base.BaseService;
 import com.maduro.poker.unit.evaluator.HandEvaluatorServiceDTO;
-import com.maduro.poker.unit.statistic.queue.StatisticHandTypeQueue;
 
-public class StatisticHandTypeService
-		extends BaseServiceFull<HandEvaluatorServiceDTO, StatisticHandTypeServiceDTO> {
-
-	public StatisticHandTypeService(IQueue<HandEvaluatorServiceDTO> subscriber) {
-		super(subscriber);
-		this.queuePublisher = new StatisticHandTypeQueue();
+public class StatisticHandTypeService extends BaseService {
+	
+	public StatisticHandTypeService(EventBus eventBus) {
+		super(eventBus);
 	}
 
-	@Override
-	public StatisticHandTypeServiceDTO processSubscriber(HandEvaluatorServiceDTO subscriber) {
+	@Subscribe
+	public void stringEvent(HandEvaluatorServiceDTO event) {
+		publish(process(event));
+	}
+
+	public StatisticHandTypeServiceDTO process(HandEvaluatorServiceDTO handEvaluatorServiceDTO) {
 
 		StatisticHandTypeServiceDTO statisticHandTypeServiceDTO = new StatisticHandTypeServiceDTO();
 
-		subscriber.getGameCrititalHandDataModelList().stream().forEach(gameCrititalHandDataModel -> {
+		handEvaluatorServiceDTO.getGameCrititalHandDataModelList().stream().forEach(gameCrititalHandDataModel -> {
 
 			statisticHandTypeServiceDTO.addHand(gameCrititalHandDataModel.getGameCode(),
 					gameCrititalHandDataModel.getHandDataModelList(),
