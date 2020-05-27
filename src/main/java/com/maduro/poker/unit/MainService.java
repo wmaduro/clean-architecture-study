@@ -43,21 +43,15 @@ public class MainService {
 	private Runnable[] getRunnables(Path monitoredFolder, String mainPlayer,
 			AggressivityBehaviorEnum aggressivityBehaviorEnum, EventBus eventBus) {
 
-		FolderMonitorService folderMonitorService = new FolderMonitorService(eventBus, monitoredFolder);
-		FileParserService fileParserService = new FileParserService(eventBus);
-		HandMapperService handMapperService = new HandMapperService(eventBus);
-		HandEvaluatorService handEvaluatorService = new HandEvaluatorService(eventBus, mainPlayer,
-				aggressivityBehaviorEnum);
-		StatisticHandTypeService statisticHandTypeService = new StatisticHandTypeService(eventBus);
-		StatisticHandTypeViewerSevice statisticHandTypeViewerSevice = new StatisticHandTypeViewerSevice(eventBus);
-
 		final Runnable[] runnables = { 
-				folderMonitorService, 
-				fileParserService,
-				handMapperService, 
-				handEvaluatorService,
-				statisticHandTypeService, 
-				statisticHandTypeViewerSevice, 
+				
+				new FolderMonitorService(eventBus, monitoredFolder), 
+				new FileParserService(eventBus),
+				new HandMapperService(eventBus), 
+				new HandEvaluatorService(eventBus, mainPlayer, aggressivityBehaviorEnum),
+				new StatisticHandTypeService(eventBus), 
+				new StatisticHandTypeViewerSevice(eventBus),
+			 
 		};
 
 		return runnables;
