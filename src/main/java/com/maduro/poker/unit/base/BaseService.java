@@ -10,16 +10,20 @@ public abstract class BaseService implements Runnable {
 	private EventBus eventBus;
 
 	public BaseService(EventBus eventBus) {
-		this.eventBus = eventBus;
-		this.eventBus.register(this);
+		if (eventBus != null) {
+			this.eventBus = eventBus;
+			this.eventBus.register(this);
+		}
 	}
 
 	@Override
 	public void run() {
 	}
-	
+
 	public void publish(Object object) {
-		this.eventBus.post(object);
+		if (eventBus != null && object != null) {
+			this.eventBus.post(object);
+		}
 	}
 
 }

@@ -58,7 +58,7 @@ public class MainServiceTest {
 		ExecutorService executorService = mock(ExecutorService.class);
 
 		mainService.executeRunnables(runnables, executorService);
-
+	
 		verify(executorService).submit(runnables[0]);
 
 	}

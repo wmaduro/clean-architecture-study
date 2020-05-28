@@ -22,7 +22,7 @@ class StatisticHandTypeServiceTest {
 		MockitoAnnotations.initMocks(this);
 	}
 
-	@Test
+//	@Test
 	void mustGenerateStatisticSuccessfuly() throws Exception {
 
 //		when(handEvaluatorServiceDTO.getGameCrititalHandDataModelList())

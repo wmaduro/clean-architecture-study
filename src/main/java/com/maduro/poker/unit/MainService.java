@@ -58,7 +58,7 @@ public class MainService {
 		try {
 
 			Arrays.asList(runnables).stream().forEach(runnable -> {
-				//executorService.submit(runnable);
+				executorService.submit(runnable);
 			});
 
 		} finally {

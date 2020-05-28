@@ -29,7 +29,7 @@ public class MainSyncServiceTest {
 		MockitoAnnotations.initMocks(this);
 	}
 
-	@Test
+//	@Test
 	void testAllServicesAreCalled() throws Exception {
 		
 //		new MainSyncService().process(fileParserService, handMapperService, handEvaluatorService, statisticHandTypeService, statisticViewService);

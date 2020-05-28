@@ -15,6 +15,7 @@ import com.maduro.poker.util.Utils;
 
 public class FolderMonitorService extends BaseService {
 
+	public static String IMPORTING_EXTENSION = ".importing";
 	private Path monitoredFolder;
 
 	public FolderMonitorService(EventBus eventBus, Path monitoredFolder) {
@@ -70,10 +71,8 @@ public class FolderMonitorService extends BaseService {
 		}
 	}
 
-	private File renameFile(Path path) throws Exception {
-
-		String IMPORTING_EXTENSION = ".importing";
-
+	File renameFile(Path path) throws Exception {
+		
 		String newFileName = Utils.removeFileExtension(path.toFile().getAbsolutePath()) + IMPORTING_EXTENSION;
 		File newImportFile = new File(newFileName);
 		if (!path.toFile().renameTo(newImportFile)) {
