@@ -18,7 +18,12 @@
 	</properties>
 
 	<dependencies>
-
+		<dependency>
+			<groupId>org.awaitility</groupId>
+			<artifactId>awaitility</artifactId>
+			<version>4.0.3</version>
+			<scope>test</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>org.mockito</groupId>
@@ -27,22 +32,6 @@
 			<scope>test</scope>
 		</dependency>
 
-
-		<!-- <dependency> -->
-		<!-- <groupId>org.powermock</groupId> -->
-		<!-- <artifactId>powermock-module-junit4</artifactId> -->
-		<!-- <version>${powermock.version}</version> -->
-		<!-- <scope>test</scope> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.powermock</groupId> -->
-		<!-- <artifactId>powermock-api-mockito2</artifactId> -->
-		<!-- <version>${powermock.version}</version> -->
-		<!-- <scope>test</scope> -->
-		<!-- </dependency> -->
-
-
-		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -50,7 +39,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
