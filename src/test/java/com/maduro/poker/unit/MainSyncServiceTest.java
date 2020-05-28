@@ -3,7 +3,6 @@ package com.maduro.poker.unit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import com.maduro.poker.unit.evaluator.HandEvaluatorService;

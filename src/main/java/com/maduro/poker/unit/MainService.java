@@ -16,45 +16,55 @@ import com.maduro.poker.unit.statistic.view.StatisticHandTypeViewerSevice;
 
 public class MainService {
 
-	public void run(Path monitoredFolder, String mainPlayer, AggressivityBehaviorEnum aggressivityBehaviorEnum) {
-
-		EventBus eventBus = new EventBus();
+	public void run(Path monitoredFolder, String mainPlayer, AggressivityBehaviorEnum aggressivityBehaviorEnum,
+			EventBus eventBus, ExecutorService executorService) {
 
 		Runnable[] runnables = getRunnables(monitoredFolder, mainPlayer, aggressivityBehaviorEnum, eventBus);
-		executeRunnables(runnables);
-
+		executeRunnables(runnables, executorService );
 	}
 
-	private void executeRunnables(Runnable[] runnables) {
-		final ExecutorService executorService = Executors.newCachedThreadPool();
+	public boolean test() {
+		return true;
+	}
+
+	Runnable[] getRunnables(Path monitoredFolder, String mainPlayer,
+			AggressivityBehaviorEnum aggressivityBehaviorEnum, EventBus eventBus) {
+		if (monitoredFolder == null || eventBus == null) {
+			return null;
+		}
+
+		final Runnable[] runnables = {
+
+				new FolderMonitorService(eventBus, monitoredFolder), 
+				new FileParserService(eventBus),
+				new HandMapperService(eventBus),
+				new HandEvaluatorService(eventBus, mainPlayer, aggressivityBehaviorEnum),
+				new StatisticHandTypeService(eventBus), 
+				new StatisticHandTypeViewerSevice(eventBus),
+
+		};
+
+		return runnables;
+	}
+
+	void executeRunnables(Runnable[] runnables, ExecutorService executorService ) {
+
+		if (runnables == null) {
+			return;
+		}
+
+//		final ExecutorService executorService = Executors.newCachedThreadPool();
 
 		try {
 
 			Arrays.asList(runnables).stream().forEach(runnable -> {
-				executorService.submit(runnable);
+				//executorService.submit(runnable);
 			});
 
 		} finally {
 			System.out.println("processing... ");
 			executorService.shutdown();
 		}
-	}
-
-	private Runnable[] getRunnables(Path monitoredFolder, String mainPlayer,
-			AggressivityBehaviorEnum aggressivityBehaviorEnum, EventBus eventBus) {
-
-		final Runnable[] runnables = { 
-				
-				new FolderMonitorService(eventBus, monitoredFolder), 
-				new FileParserService(eventBus),
-				new HandMapperService(eventBus), 
-				new HandEvaluatorService(eventBus, mainPlayer, aggressivityBehaviorEnum),
-				new StatisticHandTypeService(eventBus), 
-				new StatisticHandTypeViewerSevice(eventBus),
-			 
-		};
-
-		return runnables;
 	}
 
 }
