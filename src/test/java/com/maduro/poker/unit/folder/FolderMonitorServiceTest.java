@@ -26,9 +26,9 @@ class FolderMonitorServiceTest {
 	void setUp() throws Exception {
 		Arrays.asList(tempDir.listFiles()).stream().forEach(file -> file.delete());
 	}
-
+	
 	@Test
-	void mustRenameCSVFiles() throws IOException {
+	void must_Rename_CSVFiles() throws IOException {
 		
 		final int TIMEOUT_TWO_SEC = 2;
 		

@@ -10,6 +10,7 @@ import com.google.common.eventbus.Subscribe;
 import com.maduro.poker.domain.HandDataModel;
 import com.maduro.poker.unit.base.BaseService;
 import com.maduro.poker.unit.folder.FolderMonitorServiceDTO;
+import com.yg2288.run.Lixo;
 
 public class FileParserService extends BaseService {
 
@@ -17,19 +18,28 @@ public class FileParserService extends BaseService {
 		super(eventBus);
 	}
 
+	@Override
+	public void run() {
+		super.run();
+	}
+
 	@Subscribe
-	public void stringEvent(FolderMonitorServiceDTO event) {
+	private void processEvent(FolderMonitorServiceDTO event) {
 		publish(process(event));
 	}
 
 	public FileParserServiceDTO process(FolderMonitorServiceDTO folderMonitorServiceDTO) {
+
+		if (folderMonitorServiceDTO == null || folderMonitorServiceDTO.getFile() == null) {
+			return null;
+		}
 
 		FileParserServiceDTO fileParserDTO = new FileParserServiceDTO();
 
 		final String HEAD = "\"game\"";
 		BufferedReader br = null;
 		try {
-			
+
 			br = new BufferedReader(new FileReader(folderMonitorServiceDTO.getFile()));
 
 			String line;
