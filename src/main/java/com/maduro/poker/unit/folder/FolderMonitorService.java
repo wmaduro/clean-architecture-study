@@ -10,10 +10,10 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 
 import com.google.common.eventbus.EventBus;
-import com.maduro.poker.unit.base.BaseService;
+import com.maduro.poker.unit.base.BaseRunnableEventBusService;
 import com.maduro.poker.util.Utils;
 
-public class FolderMonitorService extends BaseService {
+public class FolderMonitorService extends BaseRunnableEventBusService {
 
 	public static String IMPORTING_EXTENSION = ".importing";
 	private Path monitoredFolder;

@@ -2,10 +2,10 @@ package com.maduro.poker.unit.mapper;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import com.maduro.poker.unit.base.BaseService;
+import com.maduro.poker.unit.base.BaseRunnableEventBusService;
 import com.maduro.poker.unit.file.FileParserServiceDTO;
 
-public class HandMapperService extends BaseService {
+public class HandMapperService extends BaseRunnableEventBusService {
 
 	public HandMapperService(EventBus eventBus) {
 		super(eventBus);

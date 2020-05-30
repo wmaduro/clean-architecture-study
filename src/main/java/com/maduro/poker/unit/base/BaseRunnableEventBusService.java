@@ -3,10 +3,11 @@ package com.maduro.poker.unit.base;
 import java.time.Instant;
 
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 
 import lombok.Getter;
 
-public abstract class BaseService implements Runnable {
+public abstract class BaseRunnableEventBusService implements Runnable {
 
 	@Getter
 	private Instant instantEventProcessed= null;
@@ -15,13 +16,13 @@ public abstract class BaseService implements Runnable {
 	
 	private EventBus eventBus;
 
-	public BaseService(EventBus eventBus) {
+	public BaseRunnableEventBusService(EventBus eventBus) {
 		if (eventBus != null) {
 			this.eventBus = eventBus;
 			this.eventBus.register(this);
 		}
 	}
-
+	
 	@Override
 	public void run() {
 	}

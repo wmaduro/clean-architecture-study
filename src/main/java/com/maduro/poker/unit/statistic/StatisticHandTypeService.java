@@ -2,10 +2,10 @@ package com.maduro.poker.unit.statistic;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import com.maduro.poker.unit.base.BaseService;
+import com.maduro.poker.unit.base.BaseRunnableEventBusService;
 import com.maduro.poker.unit.evaluator.HandEvaluatorServiceDTO;
 
-public class StatisticHandTypeService extends BaseService {
+public class StatisticHandTypeService extends BaseRunnableEventBusService {
 	
 	public StatisticHandTypeService(EventBus eventBus) {
 		super(eventBus);

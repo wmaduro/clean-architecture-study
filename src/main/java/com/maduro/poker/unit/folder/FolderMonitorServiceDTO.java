@@ -2,9 +2,11 @@ package com.maduro.poker.unit.folder;
 
 import java.io.File;
 
+import com.maduro.poker.unit.base.IBaseEventBusDTO;
+
 import lombok.Getter;
 
-public class FolderMonitorServiceDTO {
+public class FolderMonitorServiceDTO implements IBaseEventBusDTO {
 
 	@Getter
 	private File file = null;

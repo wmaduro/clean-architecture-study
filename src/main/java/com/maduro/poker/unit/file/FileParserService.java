@@ -6,13 +6,12 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 
 import com.google.common.eventbus.EventBus;
-import com.google.common.eventbus.Subscribe;
 import com.maduro.poker.domain.HandDataModel;
-import com.maduro.poker.unit.base.BaseService;
+import com.maduro.poker.unit.base.BaseRunnableEventBusProcessEventService;
+import com.maduro.poker.unit.base.IBaseEventBusDTO;
 import com.maduro.poker.unit.folder.FolderMonitorServiceDTO;
-import com.yg2288.run.Lixo;
 
-public class FileParserService extends BaseService {
+public class FileParserService extends BaseRunnableEventBusProcessEventService {
 
 	public FileParserService(EventBus eventBus) {
 		super(eventBus);
@@ -23,9 +22,11 @@ public class FileParserService extends BaseService {
 		super.run();
 	}
 
-	@Subscribe
-	private void processEvent(FolderMonitorServiceDTO event) {
-		publish(process(event));
+	@Override
+	public void ProcessEvent(IBaseEventBusDTO event) {
+		if (event instanceof FolderMonitorServiceDTO) {
+			publish(process((FolderMonitorServiceDTO) event));
+		}
 	}
 
 	public FileParserServiceDTO process(FolderMonitorServiceDTO folderMonitorServiceDTO) {

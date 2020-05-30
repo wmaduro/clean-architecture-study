@@ -9,11 +9,11 @@ import com.google.common.eventbus.Subscribe;
 import com.maduro.poker.domain.CriticalHandOutcomeEnum;
 import com.maduro.poker.domain.HandDataModel;
 import com.maduro.poker.enums.AggressivityBehaviorEnum;
-import com.maduro.poker.unit.base.BaseService;
+import com.maduro.poker.unit.base.BaseRunnableEventBusService;
 import com.maduro.poker.unit.evaluator.handdata.HandDataService;
 import com.maduro.poker.unit.mapper.HandMapperServiceDTO;
 
-public class HandEvaluatorService extends BaseService {
+public class HandEvaluatorService extends BaseRunnableEventBusService {
 
 	private String mainPlayerName = null;
 	private AggressivityBehaviorEnum aggressivityBehaviorEnum = null;
