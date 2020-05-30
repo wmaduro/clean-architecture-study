@@ -29,7 +29,7 @@ The main idea is to breakdown the problem above in small units (Services). Each 
 
 ### Project Overview
 
-![alt text](https://raw.githubusercontent.com/wmaduro/clean-architecture-study/master-sync/md-files/overview.svg)
+![alt text](https://raw.githubusercontent.com/wmaduro/clean-architecture-study/master-eventbus/md-files/overview.svg)
 
 ### Decoupled Units
 
