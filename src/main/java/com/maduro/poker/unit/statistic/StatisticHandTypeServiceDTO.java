@@ -6,10 +6,11 @@ import java.util.TreeMap;
 
 import com.maduro.poker.domain.CriticalHandOutcomeEnum;
 import com.maduro.poker.domain.HandDataModel;
+import com.maduro.poker.unit.base.IBaseEventBusDTO;
 
 import lombok.Getter;
 
-public class StatisticHandTypeServiceDTO {
+public class StatisticHandTypeServiceDTO implements IBaseEventBusDTO {
 	
 	@Getter
 	private final Map<String, List<HandDataModel>> tiedHandsMap = new TreeMap<String, List<HandDataModel>>();

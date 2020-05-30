@@ -4,5 +4,5 @@ import com.google.common.eventbus.Subscribe;
 
 public interface IBaseProcessEventService {
 	@Subscribe 
-	void ProcessEvent(IBaseEventBusDTO event);
+	void processEvent(IBaseEventBusDTO event);
 }

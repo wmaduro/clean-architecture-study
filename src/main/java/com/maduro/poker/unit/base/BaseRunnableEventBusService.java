@@ -25,7 +25,7 @@ public abstract class BaseRunnableEventBusService implements Runnable {
 	public void run() {
 	}
 
-	public void publish(Object object) {
+	public void publish(IBaseEventBusDTO object) {
 		this.instantPublishCalled = Instant.now();
 		if (eventBus != null && object != null) {
 			this.eventBus.post(object);

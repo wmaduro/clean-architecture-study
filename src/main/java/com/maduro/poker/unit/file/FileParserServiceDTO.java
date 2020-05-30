@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.maduro.poker.domain.HandDataModel;
+import com.maduro.poker.unit.base.IBaseEventBusDTO;
 
 import lombok.Getter;
 
-public class FileParserServiceDTO {
+public class FileParserServiceDTO implements IBaseEventBusDTO {
 	@Getter
 	final private List<HandDataModel> handDataModelList = new ArrayList<>();
 	

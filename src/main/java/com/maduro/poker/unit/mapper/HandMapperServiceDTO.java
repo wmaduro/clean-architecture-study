@@ -6,10 +6,11 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.maduro.poker.domain.HandDataModel;
+import com.maduro.poker.unit.base.IBaseEventBusDTO;
 
 import lombok.Getter;
 
-public class HandMapperServiceDTO {
+public class HandMapperServiceDTO implements IBaseEventBusDTO {
 	@Getter
 	final private Map<String, List<HandDataModel>> handDataModelMap = 
 			 new TreeMap<>();

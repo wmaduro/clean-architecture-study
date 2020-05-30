@@ -9,22 +9,27 @@ import com.google.common.eventbus.Subscribe;
 import com.maduro.poker.domain.CriticalHandOutcomeEnum;
 import com.maduro.poker.domain.HandDataModel;
 import com.maduro.poker.enums.AggressivityBehaviorEnum;
-import com.maduro.poker.unit.base.BaseRunnableEventBusService;
+import com.maduro.poker.unit.base.BaseRunnableEventBusProcessEventService;
+import com.maduro.poker.unit.base.IBaseEventBusDTO;
 import com.maduro.poker.unit.evaluator.handdata.HandDataService;
+import com.maduro.poker.unit.folder.FolderMonitorServiceDTO;
 import com.maduro.poker.unit.mapper.HandMapperServiceDTO;
 
-public class HandEvaluatorService extends BaseRunnableEventBusService {
+public class HandEvaluatorService extends BaseRunnableEventBusProcessEventService {
 
 	private String mainPlayerName = null;
 	private AggressivityBehaviorEnum aggressivityBehaviorEnum = null;
 	private static final String ACTION_PRE_FLOP = "PRE_FLOP";
 
 	@Subscribe
-	public void stringEvent(HandMapperServiceDTO event) {
-		publish(process(event));
+	public void processEvent(IBaseEventBusDTO event) {
+		if (event instanceof HandMapperServiceDTO) {
+			publish(process((HandMapperServiceDTO) event));
+		}
 	}
 
-	public HandEvaluatorService(EventBus eventBus, String mainPlayerName, AggressivityBehaviorEnum aggressivityBehaviorEnum) {
+	public HandEvaluatorService(EventBus eventBus, String mainPlayerName,
+			AggressivityBehaviorEnum aggressivityBehaviorEnum) {
 		super(eventBus);
 		this.mainPlayerName = mainPlayerName;
 		this.aggressivityBehaviorEnum = aggressivityBehaviorEnum;

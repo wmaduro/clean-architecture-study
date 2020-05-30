@@ -6,10 +6,11 @@ import java.util.List;
 import com.maduro.poker.domain.CriticalHandOutcomeEnum;
 import com.maduro.poker.domain.GameCrititalHandDataModel;
 import com.maduro.poker.domain.HandDataModel;
+import com.maduro.poker.unit.base.IBaseEventBusDTO;
 
 import lombok.Getter;
 
-public class HandEvaluatorServiceDTO {	
+public class HandEvaluatorServiceDTO implements IBaseEventBusDTO {
 
 	@Getter
 	private List<GameCrititalHandDataModel> gameCrititalHandDataModelList = new ArrayList<>();
