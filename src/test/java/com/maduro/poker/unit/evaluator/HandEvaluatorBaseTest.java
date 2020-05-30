@@ -35,7 +35,7 @@ public abstract class HandEvaluatorBaseTest {
 		HandMapperServiceDTO event = new HandMapperServiceDTO();
 		eventBus.post(event);
 
-		assertTrue(handEvaluatorService.getInstantEventProcessed() != null);
+		assertTrue(handEvaluatorService.getInstantPublishCalled() != null);
 
 	}
 }

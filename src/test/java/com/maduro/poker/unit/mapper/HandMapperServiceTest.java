@@ -24,7 +24,7 @@ public class HandMapperServiceTest {
 		FileParserServiceDTO event = new FileParserServiceDTO();
 		eventBus.post(event);
 
-		assertTrue(handMapperService.getInstantEventProcessed() != null);
+		assertTrue(handMapperService.getInstantPublishCalled() != null);
 
 	}
 	

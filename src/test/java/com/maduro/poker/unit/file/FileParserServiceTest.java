@@ -29,7 +29,7 @@ public class FileParserServiceTest extends BaseTempDirServiceTest {
 		FolderMonitorServiceDTO event = new FolderMonitorServiceDTO();
 		eventBus.post(event);
 
-		assertTrue(fileParserService.getInstantEventProcessed() != null);
+		assertTrue(fileParserService.getInstantPublishCalled() != null);
 
 	}
 

@@ -9,9 +9,8 @@ import lombok.Getter;
 public abstract class BaseRunnableEventBusService implements Runnable {
 
 	@Getter
-	private Instant instantEventProcessed= null;
-	@Getter
-	private Instant instantEventPosted= null;
+	private Instant instantPublishCalled= null;
+	
 	
 	private EventBus eventBus;
 
@@ -27,9 +26,8 @@ public abstract class BaseRunnableEventBusService implements Runnable {
 	}
 
 	public void publish(Object object) {
-		this.instantEventProcessed = Instant.now();
+		this.instantPublishCalled = Instant.now();
 		if (eventBus != null && object != null) {
-			this.instantEventPosted= Instant.now();
 			this.eventBus.post(object);
 		}
 	}

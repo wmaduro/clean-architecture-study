@@ -39,7 +39,7 @@ class StatisticHandTypeServiceTest {
 		HandEvaluatorServiceDTO event = new HandEvaluatorServiceDTO();
 		eventBus.post(event);
 
-		assertTrue(statisticHandTypeService.getInstantEventProcessed() != null);
+		assertTrue(statisticHandTypeService.getInstantPublishCalled() != null);
 
 	}
 
