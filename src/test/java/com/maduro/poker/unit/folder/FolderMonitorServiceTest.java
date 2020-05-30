@@ -14,24 +14,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import com.maduro.poker.unit.base.BaseTempDirServiceTest;
 import com.maduro.poker.unit.folder.util.FolderMonitorServiceUtils;
 import com.maduro.poker.util.Utils;
 
-class FolderMonitorServiceTest {
+class FolderMonitorServiceTest extends BaseTempDirServiceTest {
 
-	@TempDir
-	File tempDir;
-
-	@BeforeEach
-	void setUp() throws Exception {
-		Arrays.asList(tempDir.listFiles()).stream().forEach(file -> file.delete());
-	}
-	
 	@Test
 	void must_Rename_CSVFiles() throws IOException {
-		
+
 		final int TIMEOUT_TWO_SEC = 2;
-		
+
 		File csvFile = FolderMonitorServiceUtils.createImportFile(tempDir, this.getClass().getCanonicalName());
 		String importFileName = Utils.removeFileExtension(csvFile.getAbsoluteFile().toString())
 				+ FolderMonitorService.IMPORTING_EXTENSION;

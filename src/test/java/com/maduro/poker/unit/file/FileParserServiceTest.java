@@ -5,31 +5,18 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
 
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.io.TempDir;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.google.common.eventbus.EventBus;
 import com.maduro.poker.domain.HandDataModel;
+import com.maduro.poker.unit.base.BaseTempDirServiceTest;
 import com.maduro.poker.unit.file.util.FileParsrServiceUtils;
 import com.maduro.poker.unit.folder.FolderMonitorServiceDTO;
 
-@RunWith(MockitoJUnitRunner.class)
-public class FileParserServiceTest {
-
-	@TempDir
-	File tempDir;
-
-	@BeforeEach
-	void setUp() throws Exception {
-		Arrays.asList(tempDir.listFiles()).stream().forEach(file -> file.delete());
-	}
+public class FileParserServiceTest extends BaseTempDirServiceTest {
 
 	@Test
 	public void must_Event_BeCaptured_Successfully() {
@@ -59,7 +46,7 @@ public class FileParserServiceTest {
 
 		assertTrue(validateOutcome(csvFile, fileParserServiceDTO));
 	}
-	
+
 	private boolean validateOutcome(File file, FileParserServiceDTO fileParserServiceDTO)
 			throws IOException, IllegalArgumentException, IllegalAccessException {
 
