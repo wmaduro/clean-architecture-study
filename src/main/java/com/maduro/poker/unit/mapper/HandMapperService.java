@@ -1,22 +1,20 @@
 package com.maduro.poker.unit.mapper;
 
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import com.maduro.poker.unit.base.BaseRunnableEventBusProcessEventService;
-import com.maduro.poker.unit.base.IBaseEventBusDTO;
 import com.maduro.poker.unit.file.FileParserServiceDTO;
 
-public class HandMapperService extends BaseRunnableEventBusProcessEventService {
+public class HandMapperService extends BaseRunnableEventBusProcessEventService<FileParserServiceDTO> {
 
 	public HandMapperService(EventBus eventBus) {
 		super(eventBus);
 	}
 
+	@Subscribe
 	@Override
-	public void processEvent(IBaseEventBusDTO event) {
-		if (event instanceof FileParserServiceDTO) {
-			publish(process((FileParserServiceDTO) event));
-		}
-
+	public void processEvent(FileParserServiceDTO event) {
+		publish(process(event));
 	}
 
 	public HandMapperServiceDTO process(FileParserServiceDTO fileParserServiceDTO) {

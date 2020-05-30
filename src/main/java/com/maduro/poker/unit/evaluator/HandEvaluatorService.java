@@ -10,29 +10,27 @@ import com.maduro.poker.domain.CriticalHandOutcomeEnum;
 import com.maduro.poker.domain.HandDataModel;
 import com.maduro.poker.enums.AggressivityBehaviorEnum;
 import com.maduro.poker.unit.base.BaseRunnableEventBusProcessEventService;
-import com.maduro.poker.unit.base.IBaseEventBusDTO;
 import com.maduro.poker.unit.evaluator.handdata.HandDataService;
-import com.maduro.poker.unit.folder.FolderMonitorServiceDTO;
 import com.maduro.poker.unit.mapper.HandMapperServiceDTO;
 
-public class HandEvaluatorService extends BaseRunnableEventBusProcessEventService {
+public class HandEvaluatorService extends BaseRunnableEventBusProcessEventService<HandMapperServiceDTO> {
 
 	private String mainPlayerName = null;
 	private AggressivityBehaviorEnum aggressivityBehaviorEnum = null;
 	private static final String ACTION_PRE_FLOP = "PRE_FLOP";
-
-	@Subscribe
-	public void processEvent(IBaseEventBusDTO event) {
-		if (event instanceof HandMapperServiceDTO) {
-			publish(process((HandMapperServiceDTO) event));
-		}
-	}
 
 	public HandEvaluatorService(EventBus eventBus, String mainPlayerName,
 			AggressivityBehaviorEnum aggressivityBehaviorEnum) {
 		super(eventBus);
 		this.mainPlayerName = mainPlayerName;
 		this.aggressivityBehaviorEnum = aggressivityBehaviorEnum;
+	}
+
+	@Subscribe
+	@Override
+	public void processEvent(HandMapperServiceDTO event) {
+		publish(process(event));
+
 	}
 
 	public HandEvaluatorServiceDTO process(HandMapperServiceDTO handMapperServiceDTO) {

@@ -3,21 +3,18 @@ package com.maduro.poker.unit.statistic;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.maduro.poker.unit.base.BaseRunnableEventBusProcessEventService;
-import com.maduro.poker.unit.base.IBaseEventBusDTO;
 import com.maduro.poker.unit.evaluator.HandEvaluatorServiceDTO;
 
-public class StatisticHandTypeService extends BaseRunnableEventBusProcessEventService {
+public class StatisticHandTypeService extends BaseRunnableEventBusProcessEventService<HandEvaluatorServiceDTO> {
 
 	public StatisticHandTypeService(EventBus eventBus) {
 		super(eventBus);
 	}
 
 	@Subscribe
-	public void processEvent(IBaseEventBusDTO event) {
-		System.out.println("StatisticHandTypeViewerSevice - "+event.getClass());
-		if (event instanceof HandEvaluatorServiceDTO) {
-			publish(process((HandEvaluatorServiceDTO) event));
-		}
+	@Override
+	public void processEvent(HandEvaluatorServiceDTO event) {
+		publish(process(event));
 	}
 
 	public StatisticHandTypeServiceDTO process(HandEvaluatorServiceDTO handEvaluatorServiceDTO) {
