@@ -25,8 +25,8 @@ public class FolderMonitorService extends BaseRunnableEventBusService {
 
 	@Override
 	public void run() {
-		startMonitoringFolder();
 		super.run();
+		startMonitoringFolder();
 	}
 
 	private void startMonitoringFolder() {

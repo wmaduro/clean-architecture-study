@@ -18,11 +18,6 @@ public class FileParserService extends BaseRunnableEventBusProcessEventService {
 	}
 
 	@Override
-	public void run() {
-		super.run();
-	}
-
-	@Override
 	public void ProcessEvent(IBaseEventBusDTO event) {
 		if (event instanceof FolderMonitorServiceDTO) {
 			publish(process((FolderMonitorServiceDTO) event));
