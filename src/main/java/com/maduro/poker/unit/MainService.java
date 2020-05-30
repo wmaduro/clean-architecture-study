@@ -22,10 +22,6 @@ public class MainService {
 		executeRunnables(runnables, executorService );
 	}
 
-	public boolean test() {
-		return true;
-	}
-
 	Runnable[] getRunnables(Path monitoredFolder, String mainPlayer,
 			AggressivityBehaviorEnum aggressivityBehaviorEnum, EventBus eventBus) {
 		if (monitoredFolder == null || eventBus == null) {
@@ -51,8 +47,6 @@ public class MainService {
 		if (runnables == null) {
 			return;
 		}
-
-//		final ExecutorService executorService = Executors.newCachedThreadPool();
 
 		try {
 
