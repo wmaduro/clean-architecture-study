@@ -4,12 +4,14 @@ This series intends to implement some projects in which we will discuss the conc
 The main  purpose is to create structures that would be easy to read (understand), maintain and evolve.
 
 ## Episodes
-- **Episode I: Service/DTO Model (Synchronicity) - (WE ARE HERE!)**
-- Episode II: Service/DTO Model (Parallelism) - (WORKING ON...)  
-- Episode III: Micro Service
+
+- **Episode I: Java SE - Service/DTO Model (Synchronicity) - (WE ARE HERE!)**
+- Episode II: Java SE - Service/DTO Model (Parallelism - EventBus) - https://github.com/wmaduro/clean-architecture-study/tree/master-eventbus
+- Episode III: SpringBoot Services (RESTFUL / Blocking) - https://github.com/wmaduro/clean-architecture-study-ms-modules/tree/master
+- Episode IV: SpringBoot Cloud MicroServices (RESTFUL / Non-Blocking) - (Coming Soon..)  
 
 ## The Problem 
-The purpose of the project is to analyze if the best hand had won or lost after a pre-flop all-in action.
+**The problem itself is not the most important thing here.** Anyway, the purpose of the project is to analyze if the best hand had won or lost after a pre-flop all-in action.
 For that, it will consume a file containing the outcome of poker hands.
 
 The logic must:
@@ -23,7 +25,7 @@ The logic must:
 	
 Obs: Optionally, the evaluation service could be filtered by "player name" and/or "aggressivity behaviour".   
 
-# Episode I: Service/DTO Model (Synchronicity) 
+# Episode I: Java SE - Service/DTO Model (Synchronicity)
 
 The main idea is to breakdown the problem above in small units (Services). Each unit produces its output object (DTO) that can be shared with other units as input parameters. **It is important to mention that "the unit" must enclose all resources and logic needed to process its data and generate its outcome.**
 
@@ -109,7 +111,7 @@ Optionally, you can import the project in Eclipse 4+ with maven plugins installe
 
 ## Conclusion
 
-The only certainty we have is that our code will change in the future. So, if It would be hard to understand and maintain, most likely we will spend more time navigating in the chaotic code than implementing the changes.  
+The only certainty we have is that our code will change in the future. So, if it would be hard to understand and maintain, most likely we will spend more time navigating in the chaotic code than implementing the changes.  
      
 The most important message here is "Stop, Think, Plan and then Implement/Test".  
 
