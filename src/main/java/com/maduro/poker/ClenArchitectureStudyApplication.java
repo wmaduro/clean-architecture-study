@@ -1,7 +1,7 @@
 package com.maduro.poker;
 
+import java.io.File;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.concurrent.Executors;
 
 import com.google.common.eventbus.EventBus;
@@ -12,17 +12,26 @@ public class ClenArchitectureStudyApplication {
 
 	public static void main(String[] args) {
 
-		Path monitoredFolder = Paths.get("/home/maduro/pokerstas-files/all-in-statistic/");
+		
+		if (args == null || args.length == 0 || args[0].isBlank()) {
+			System.err.println("The application has stopped! Please, inform the folder to be monitored.");
+			return;
+		}
+	
+		File file = new File(args[0]);
+		
+		if (!file.isDirectory()) {
+			System.err.println("The application has stopped! the " + args[0] + " is not a valid folder.");
+			return;
+		}
+
+		Path monitoredFolder = file.toPath();
 		String mainPlayer = "wmaduro";
 		EventBus eventBus = new EventBus();
 
-		
-		new MainService().run(monitoredFolder, 
-				mainPlayer, 
-				AggressivityBehaviorEnum.RAISER, 
-				eventBus, 
+		new MainService().run(monitoredFolder, mainPlayer, AggressivityBehaviorEnum.RAISER, eventBus,
 				Executors.newCachedThreadPool());
 
 	}
-	
+
 }

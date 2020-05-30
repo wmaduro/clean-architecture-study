@@ -62,7 +62,10 @@ The principle here is: "Each test must be atomic". So, It must have run in a com
 2. Jump into the project folder: **cd clean-architecture-study**
 3. Change permission: **chmod +x mvnw**
 4. Compile using built-in maven  (notice that all unit tests will be triggered): **./mvnw clean compile package**
-5. Run: **java -cp 'target/lib/*:target/clean-architecture-study-0.0.1-SNAPSHOT-jar-with-dependencies.jar' com.maduro.poker.ClenArchitectureStudyApplication**
+5. Run: **java -cp 'target/lib/*:target/clean-architecture-study-0.0.1-SNAPSHOT-jar-with-dependencies.jar' com.maduro.poker.ClenArchitectureStudyApplication 
+   ./samples-files**
+
+If you want, you can change the parameter (line 5) and set your own folder. After that, create the "csv" files in it.
 
 
 Optionally, you can import the project in Eclipse 4+ with maven plugins installed. 
