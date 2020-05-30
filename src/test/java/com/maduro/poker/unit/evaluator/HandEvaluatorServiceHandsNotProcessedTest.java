@@ -1,12 +1,12 @@
 package com.maduro.poker.unit.evaluator;
 
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import com.maduro.poker.domain.HandDataModel;
 import com.maduro.poker.enums.AggressivityBehaviorEnum;
@@ -35,12 +35,12 @@ public class HandEvaluatorServiceHandsNotProcessedTest extends HandEvaluatorBase
 	
 	private void mustNotProcessingSuccessfuly(Map<String, List<HandDataModel>> handMap) throws Exception {
 		
-//		when(handMapperServiceDTO.getHandDataModelMap()).thenReturn(handMap);
-//		
-//		HandEvaluatorServiceDTO handEvaluatorServiceDTO = new HandEvaluatorService(mainPlayerNameFilter,
-//				AggressivityBehaviorEnum.RAISER).process(handMapperServiceDTO);
-//
-//		assertTrue(validateNotProcessingOutcome(handEvaluatorServiceDTO));
+		Mockito.when(handMapperServiceDTO.getHandDataModelMap()).thenReturn(handMap);
+		
+		HandEvaluatorServiceDTO handEvaluatorServiceDTO = new HandEvaluatorService(null, mainPlayerNameFilter,
+				AggressivityBehaviorEnum.RAISER).process(handMapperServiceDTO);
+
+		assertTrue(validateNotProcessingOutcome(handEvaluatorServiceDTO));
 	
 	}
 	

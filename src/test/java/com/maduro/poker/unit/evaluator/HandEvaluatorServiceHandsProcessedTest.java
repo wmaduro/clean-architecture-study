@@ -34,13 +34,13 @@ public class HandEvaluatorServiceHandsProcessedTest extends HandEvaluatorBaseTes
 	private void mustProcessHandWinSuccessfuly(Map<String, List<HandDataModel>> handMap,
 			CriticalHandOutcomeEnum criticalHandOutcomeEnum) throws Exception {
 
-//		when(handMapperServiceDTO.getHandDataModelMap()).thenReturn(handMap);
-//
-//		HandEvaluatorServiceDTO handEvaluatorServiceDTO = new HandEvaluatorService(mainPlayerNameFilter,
-//				AggressivityBehaviorEnum.RAISER).process(handMapperServiceDTO);
-//
-//		assertTrue(validateProcessHandWinSuccessfulyOutcome(handMapperServiceDTO, handEvaluatorServiceDTO,
-//				criticalHandOutcomeEnum));
+		when(handMapperServiceDTO.getHandDataModelMap()).thenReturn(handMap);
+
+		HandEvaluatorServiceDTO handEvaluatorServiceDTO = new HandEvaluatorService(null, mainPlayerNameFilter,
+				AggressivityBehaviorEnum.RAISER).process(handMapperServiceDTO);
+
+		assertTrue(validateProcessHandWinSuccessfulyOutcome(handMapperServiceDTO, handEvaluatorServiceDTO,
+				criticalHandOutcomeEnum));
 
 	}
 
