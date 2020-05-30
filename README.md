@@ -1,29 +1,17 @@
 # Clean Architecture Study Series
 
-This series intends to implement some projects in which we will discuss the concepts regarding clean, decoupled and testable code strategies. 
-The main  purpose is to create structures that would be easy to read (understand), maintain and evolve.
+The same content described in https://github.com/wmaduro/clean-architecture-study/tree/master-sync.
 
 ## Episodes
-- **Episode I: Service/DTO Model (Synchronicity) - (WE ARE HERE!)**
-- Episode II: Service/DTO Model (Parallelism) - (WORKING ON...)  
-- Episode III: Micro Service
+- Episode I: Service/DTO Model (Synchronicity) - https://github.com/wmaduro/clean-architecture-study/tree/master-sync
+- **Episode II: Service/DTO Model (EventBus) - (WE ARE HERE...)**  
+- Episode III: Micro Services (Coming soon..)
 
 ## The Problem 
-The purpose of the project is to analyze if the best hand had won or lost after a pre-flop all-in action.
-For that, it will consume a file containing the outcome of poker hands.
 
-The logic must:
-	
-1. Separate the hands in blocks containing the player's data (cards, earned values etc).
-2. Evaluate if the winner hand held the best cards (before pre-flop action).
-3. Show the result: 
-		total tied: ?
-		total best: ?
-		total worst: ?
-	
-Obs: Optionally, the evaluation service could be filtered by "player name" and/or "aggressivity behaviour".   
+The same content described in https://github.com/wmaduro/clean-architecture-study/tree/master-sync.
 
-# Episode I: Service/DTO Model (Synchronicity) 
+# Episode I: Service/DTO Model (EventBus) 
 
 The main idea is to breakdown the problem above in small units (Services). Each unit produces its output object (DTO) that can be shared with other units as input parameters. **It is important to mention that "the unit" must enclose all resources and logic needed to process its data and generate its outcome.**
 
