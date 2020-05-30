@@ -6,7 +6,7 @@ The same content described at https://github.com/wmaduro/clean-architecture-stud
 ## Episodes
 - Episode I: Service/DTO Model (Synchronicity) - https://github.com/wmaduro/clean-architecture-study/tree/master-sync
 - **Episode II: Service/DTO Model (EventBus) - (WE ARE HERE...)**  
-- Episode III: Micro Services (Coming soon..)
+- Episode III: Microservices (Coming soon..)
 
 ## The Problem 
 
@@ -33,7 +33,7 @@ The main problem was separated into smaller "units" to establish concise and cle
 - Consume: Outcome of "Folder Unit".
 - Produce: List of hand's objects.
 
-**All the other units are the same as describeb at https://github.com/wmaduro/clean-architecture-study/tree/master-sync.**
+**All the other units are the same already described at https://github.com/wmaduro/clean-architecture-study/tree/master-sync.**
 
 ### Tests
 
