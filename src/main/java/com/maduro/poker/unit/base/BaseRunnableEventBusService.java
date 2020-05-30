@@ -3,7 +3,6 @@ package com.maduro.poker.unit.base;
 import java.time.Instant;
 
 import com.google.common.eventbus.EventBus;
-import com.google.common.eventbus.Subscribe;
 
 import lombok.Getter;
 

@@ -2,7 +2,6 @@ package com.maduro.poker.unit;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 import java.nio.file.Path;

@@ -12,11 +12,15 @@ public class StatisticHandTypeViewerSevice extends BaseRunnableEventBusService {
 	}
 
 	@Subscribe
-	public void stringEvent(StatisticHandTypeServiceDTO event) {
+	public void processEvent(StatisticHandTypeServiceDTO event) {
 		showResult(event);
 	}
 
 	public void showResult(StatisticHandTypeServiceDTO statisticHandTypeServiceDTO) {
+		if (statisticHandTypeServiceDTO == null) {
+			System.out.print("No statistics were processed. Data is null!");
+			return;
+		}
 		System.out.println("total tied: " + statisticHandTypeServiceDTO.getTiedHandsMap().size());
 		System.out.println("total best: " + statisticHandTypeServiceDTO.getBestHandsWinMap().size());
 		System.out.println("total worst: " + statisticHandTypeServiceDTO.getWorstHandsWinMap().size());

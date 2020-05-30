@@ -3,7 +3,6 @@ package com.maduro.poker.unit;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import com.google.common.eventbus.EventBus;
 import com.maduro.poker.enums.AggressivityBehaviorEnum;
