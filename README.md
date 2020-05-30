@@ -1,6 +1,7 @@
+
 # Clean Architecture Study Series
 
-The same content described in https://github.com/wmaduro/clean-architecture-study/tree/master-sync.
+The same content described at https://github.com/wmaduro/clean-architecture-study/tree/master-sync.
 
 ## Episodes
 - Episode I: Service/DTO Model (Synchronicity) - https://github.com/wmaduro/clean-architecture-study/tree/master-sync
@@ -9,11 +10,11 @@ The same content described in https://github.com/wmaduro/clean-architecture-stud
 
 ## The Problem 
 
-The same content described in https://github.com/wmaduro/clean-architecture-study/tree/master-sync.
+The same content described at https://github.com/wmaduro/clean-architecture-study/tree/master-sync.
 
-# Episode I: Service/DTO Model (EventBus) 
+# Episode II: Service/DTO Model (EventBus) 
 
-The main idea is to breakdown the problem above in small units (Services). Each unit produces its output object (DTO) that can be shared with other units as input parameters. **It is important to mention that "the unit" must enclose all resources and logic needed to process its data and generate its outcome.**
+The main idea is to breakdown the problem above in small units (Services). Each unit produces its output object (DTO) and post it as an event in the EventBus. 
 
 ### Project Overview
 
@@ -23,40 +24,16 @@ The main idea is to breakdown the problem above in small units (Services). Each 
 
 The main problem was separated into smaller "units" to establish concise and clear boundaries.  
 
+**Folder Unit (FolderMonitorService)**
+- Responsibility: Watch the content of a folder and process the csv files when available.
+- Produce: List of files to be processed.
+
 **File Unit (FileParserService)**
 - Responsibility: Process the file content and parse the lines to a list of hand's objects.
-- Consume: Hand's file.
+- Consume: Outcome of "Folder Unit".
 - Produce: List of hand's objects.
 
-**Mapper Unit (HandMapperService)**
-
-- Responsibility: Organize the hand's objects in blocks per hand code.
-
-- Consume: Outcome of "File Unit".
-- Produce: Map of hand's grouped by hand code.
-
-**Evaluator Unit (HandEvaluatorService)**
-
-- Responsibility: 
-    - Identify the best cards in the hand.
-    - Evaluate if the best card had won the hand.
-    - Filter the content by player name and/or aggressivity behaviour (optional).
-
-- Consume: Outcome of "Mapper Unit".
-- Produce: List of the winner's hands and its evaluation.
-
-**Statistic Hand Type Unit (StatisticHandTypeService)**
-
-- Responsibility: Organize the data in separated groups of hand types ("Best Hand Win", "Worst Hand Win" and "Tied").
-
-- Consume: Outcome of "Evaluator Unit".
-- Produce: Hand Types Mapped.
-
-**Statistic Viewer Unit (StatisticHandTypeViewerSevice)**
-
-- Responsibility: Show the evaluation statistic.
-
-- Consume: Outcome of "Statistic Hand Type".
+**All the other units are the same as describeb at https://github.com/wmaduro/clean-architecture-study/tree/master-sync.**
 
 ### Tests
 
@@ -64,15 +41,15 @@ The principle here is: "Each test must be atomic". So, It must have run in a com
 
 - **Unit Tests**
 
-	The unit tests aimed to cover each "service" scenario and all of its exceptions.
+    The unit tests aimed to cover each "service" scenario and all of its exceptions.
 
 - **Integrated Tests** (Not implemented yet*)
 
-	The integrated test is responsible for:
-	
-	- Create the simulation's input file.
-	- Process all services in the right order.
-	- Evaluate the outcome.
+    The integrated test is responsible for:
+    
+    - Create the simulation's input file.
+    - Process all services in the right order.
+    - Evaluate the outcome.
 
 ## How to run
 
@@ -81,7 +58,7 @@ The principle here is: "Each test must be atomic". So, It must have run in a com
 - **JDK 8+**
 
 ### Step by Step (LINUX)
-1. Clone the repository: **git clone -b master-sync https://github.com/wmaduro/clean-architecture-study.git**
+1. Clone the repository: **git clone -b master-eventbus https://github.com/wmaduro/clean-architecture-study.git**
 2. Jump into the project folder: **cd clean-architecture-study**
 3. Change permission: **chmod +x mvnw**
 4. Compile using built-in maven  (notice that all unit tests will be triggered): **./mvnw clean compile package**
@@ -94,10 +71,4 @@ Optionally, you can import the project in Eclipse 4+ with maven plugins installe
 
 1. Implement the integrated test.
 
-
-## Conclusion
-
-The only certainty we have is that our code will change in the future. So, if It would be hard to understand and maintain, most likely we will spend more time navigating in the chaotic code than implementing the changes.  
-     
-The most important message here is "Stop, Think, Plan and then Implement/Test".  
 
