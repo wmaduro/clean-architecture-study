@@ -15,36 +15,36 @@ import com.maduro.poker.unit.evaluator.util.HandEvaluatorUtils;
 public class HandEvaluatorServiceHandsNotProcessedTest extends HandEvaluatorBaseTest{
 	@Test
 	public void mustNotProcessingWhenActionIsNotPreFlop() throws Exception {
-		mustNotProcessingSuccessfuly(HandEvaluatorUtils.getActionIsNotPreFlopMap());
+		must_NotProcessing_Successfuly(HandEvaluatorUtils.getActionIsNotPreFlopMap());
 	}
 	
 	@Test
 	public void mustNotProcessingWhenFindOnlyOneHand() throws Exception {
-		mustNotProcessingSuccessfuly(HandEvaluatorUtils.getOnlyOneHandMap());		
+		must_NotProcessing_Successfuly(HandEvaluatorUtils.getOnlyOneHandMap());		
 	}
 	
 	@Test
 	public void mustNotProcessingWhenPlayerNotExist() throws Exception {
-		mustNotProcessingSuccessfuly(HandEvaluatorUtils.getMainPlayerNotExistMap());		
+		must_NotProcessing_Successfuly(HandEvaluatorUtils.getMainPlayerNotExistMap());		
 	}
 
 	@Test
 	public void mustNotProcessingWhenPlayerIsNotAggressor() throws Exception {
-		mustNotProcessingSuccessfuly(HandEvaluatorUtils.getMainPlayerNotAggressorMap());		
+		must_NotProcessing_Successfuly(HandEvaluatorUtils.getMainPlayerNotAggressorMap());		
 	}
 	
-	private void mustNotProcessingSuccessfuly(Map<String, List<HandDataModel>> handMap) throws Exception {
+	private void must_NotProcessing_Successfuly(Map<String, List<HandDataModel>> handMap) throws Exception {
 		
 		Mockito.when(handMapperServiceDTO.getHandDataModelMap()).thenReturn(handMap);
 		
 		HandEvaluatorServiceDTO handEvaluatorServiceDTO = new HandEvaluatorService(null, mainPlayerNameFilter,
 				AggressivityBehaviorEnum.RAISER).process(handMapperServiceDTO);
 
-		assertTrue(validateNotProcessingOutcome(handEvaluatorServiceDTO));
+		assertTrue(validate_NotProcessing_Outcome(handEvaluatorServiceDTO));
 	
 	}
 	
-	private boolean validateNotProcessingOutcome(HandEvaluatorServiceDTO handEvaluatorServiceDTO) {
+	private boolean validate_NotProcessing_Outcome(HandEvaluatorServiceDTO handEvaluatorServiceDTO) {
 		return handEvaluatorServiceDTO.getGameCrititalHandDataModelList().size() == 0;
 	}
 }

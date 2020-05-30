@@ -1,4 +1,4 @@
-package com.maduro.poker.unit.statistic.view;
+package com.maduro.poker.unit.view;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;

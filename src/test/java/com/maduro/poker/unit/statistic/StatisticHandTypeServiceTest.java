@@ -1,14 +1,19 @@
 package com.maduro.poker.unit.statistic;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertTrue;
+
+import java.util.concurrent.Executors;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import com.google.common.eventbus.EventBus;
 import com.maduro.poker.unit.evaluator.HandEvaluatorServiceDTO;
+import com.maduro.poker.unit.statistic.util.StatisticHandTypeServiceUtils;
+
 
 class StatisticHandTypeServiceTest {
 
@@ -16,19 +21,36 @@ class StatisticHandTypeServiceTest {
 	protected HandEvaluatorServiceDTO handEvaluatorServiceDTO;
 	@Mock
 	protected EventBus eventBus;
-	
 	@BeforeEach
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 	}
 
-//	@Test
-	void mustGenerateStatisticSuccessfuly() throws Exception {
+	
+	@Test
+	public void must_Event_BeCaptured_Successfully() {
 
-//		when(handEvaluatorServiceDTO.getGameCrititalHandDataModelList())
-//				.thenReturn(StatisticHandTypeServiceUtils.getOneHandPerOutcomeEnumType());
+		EventBus eventBus = new EventBus();
 
-		StatisticHandTypeServiceDTO statisticHandTypeServiceDTO = new StatisticHandTypeService(eventBus)
+		StatisticHandTypeService statisticHandTypeService = 
+				new StatisticHandTypeService(eventBus);
+		Executors.newCachedThreadPool().execute(statisticHandTypeService);
+
+		HandEvaluatorServiceDTO event = new HandEvaluatorServiceDTO();
+		eventBus.post(event);
+
+		assertTrue(statisticHandTypeService.getInstantEventProcessed() != null);
+
+	}
+
+	@Test
+	void must_GenerateStatistic_Successfuly() throws Exception {
+
+		Mockito.when(handEvaluatorServiceDTO.getGameCrititalHandDataModelList())
+				.thenReturn(StatisticHandTypeServiceUtils.getOneHandPerOutcomeEnumType());
+
+		StatisticHandTypeServiceDTO statisticHandTypeServiceDTO = 
+				new StatisticHandTypeService(eventBus)
 				.process(handEvaluatorServiceDTO);
 
 		assertTrue(validateOutcome(statisticHandTypeServiceDTO));

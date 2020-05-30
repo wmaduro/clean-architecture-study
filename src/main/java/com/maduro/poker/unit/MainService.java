@@ -12,7 +12,7 @@ import com.maduro.poker.unit.file.FileParserService;
 import com.maduro.poker.unit.folder.FolderMonitorService;
 import com.maduro.poker.unit.mapper.HandMapperService;
 import com.maduro.poker.unit.statistic.StatisticHandTypeService;
-import com.maduro.poker.unit.statistic.view.StatisticHandTypeViewerSevice;
+import com.maduro.poker.unit.view.StatisticHandTypeViewerSevice;
 
 public class MainService {
 

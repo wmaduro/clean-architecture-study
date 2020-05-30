@@ -18,20 +18,20 @@ public class HandEvaluatorServiceHandsProcessedTest extends HandEvaluatorBaseTes
 
 	@Test
 	public void mustProcessBestHandWinSuccessfuly() throws Exception {
-		mustProcessHandWinSuccessfuly(HandEvaluatorUtils.getBestHandWinMap(), CriticalHandOutcomeEnum.BEST_WIN);
+		must_ProcessHandWin_Successfuly(HandEvaluatorUtils.getBestHandWinMap(), CriticalHandOutcomeEnum.BEST_WIN);
 	}
 
 	@Test
 	public void mustProcessWorstHandWinSuccessfuly() throws Exception {
-		mustProcessHandWinSuccessfuly(HandEvaluatorUtils.getWorstHandWinMap(), CriticalHandOutcomeEnum.WORST_WIN);
+		must_ProcessHandWin_Successfuly(HandEvaluatorUtils.getWorstHandWinMap(), CriticalHandOutcomeEnum.WORST_WIN);
 	}
 
 	@Test
 	public void mustProcessTiedSuccessfuly() throws Exception {
-		mustProcessHandWinSuccessfuly(HandEvaluatorUtils.getTiedHandWinMap(), CriticalHandOutcomeEnum.TIED);
+		must_ProcessHandWin_Successfuly(HandEvaluatorUtils.getTiedHandWinMap(), CriticalHandOutcomeEnum.TIED);
 	}
 
-	private void mustProcessHandWinSuccessfuly(Map<String, List<HandDataModel>> handMap,
+	private void must_ProcessHandWin_Successfuly(Map<String, List<HandDataModel>> handMap,
 			CriticalHandOutcomeEnum criticalHandOutcomeEnum) throws Exception {
 
 		when(handMapperServiceDTO.getHandDataModelMap()).thenReturn(handMap);
