@@ -5,8 +5,8 @@ The same content described at https://github.com/wmaduro/clean-architecture-stud
 
 ## Episodes
 - Episode I: Service/DTO Model (Synchronicity) - https://github.com/wmaduro/clean-architecture-study/tree/master-sync
-- **Episode II: Service/DTO Model (EventBus) - (WE ARE HERE...)**  
-- Episode III: Microservices (Coming soon..)
+- Episode II: Service/DTO Model (EventBus) - https://github.com/wmaduro/clean-architecture-study/tree/master-eventbus
+- **Episode III: Microservices - (WE ARE HERE...)**  
 
 ## The Problem 
 
@@ -18,7 +18,7 @@ The main idea is to breakdown the problem above in small units (Services). Each 
 
 ### Project Overview
 
-![alt text](https://raw.githubusercontent.com/wmaduro/clean-architecture-study/master-eventbus/md-files/overview.svg)
+![alt text](https://raw.githubusercontent.com/wmaduro/clean-architecture-study/master-ms/md-files/overview.svg)
 
 ### Decoupled Units
 
