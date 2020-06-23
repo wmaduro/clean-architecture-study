@@ -16,12 +16,12 @@ import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.google.common.eventbus.EventBus;
-import com.maduro.poker.unit.evaluator.HandEvaluatorService;
-import com.maduro.poker.unit.file.FileParserService;
-import com.maduro.poker.unit.folder.FolderMonitorService;
-import com.maduro.poker.unit.mapper.HandMapperService;
-import com.maduro.poker.unit.statistic.StatisticHandTypeService;
-import com.maduro.poker.unit.view.StatisticHandTypeViewerSevice;
+import com.maduro.poker.unit.fileparser.FileParserService;
+import com.maduro.poker.unit.foldermonitor.FolderMonitorService;
+import com.maduro.poker.unit.handevaluator.HandEvaluatorService;
+import com.maduro.poker.unit.handmapper.HandMapperService;
+import com.maduro.poker.unit.handtype.HandTypeService;
+import com.maduro.poker.unit.handtypeviewer.HandTypeViewerSevice;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MainServiceTest {
@@ -35,8 +35,8 @@ public class MainServiceTest {
 		Runnable[] runnables = mainService.getRunnables(mock(Path.class), null, null, mock(EventBus.class));
 
 		List<?> excpectedServiceList = Arrays.asList(FolderMonitorService.class, FileParserService.class,
-				HandMapperService.class, HandEvaluatorService.class, StatisticHandTypeService.class,
-				StatisticHandTypeViewerSevice.class);
+				HandMapperService.class, HandEvaluatorService.class, HandTypeService.class,
+				HandTypeViewerSevice.class);
 
 		java.util.List<?> runnablesClassList = Arrays.asList(runnables).stream().map(a -> a.getClass())
 				.collect(Collectors.toList());

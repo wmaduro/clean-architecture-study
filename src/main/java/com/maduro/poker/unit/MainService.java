@@ -6,12 +6,12 @@ import java.util.concurrent.ExecutorService;
 
 import com.google.common.eventbus.EventBus;
 import com.maduro.poker.enums.AggressivityBehaviorEnum;
-import com.maduro.poker.unit.evaluator.HandEvaluatorService;
-import com.maduro.poker.unit.file.FileParserService;
-import com.maduro.poker.unit.folder.FolderMonitorService;
-import com.maduro.poker.unit.mapper.HandMapperService;
-import com.maduro.poker.unit.statistic.StatisticHandTypeService;
-import com.maduro.poker.unit.view.StatisticHandTypeViewerSevice;
+import com.maduro.poker.unit.fileparser.FileParserService;
+import com.maduro.poker.unit.foldermonitor.FolderMonitorService;
+import com.maduro.poker.unit.handevaluator.HandEvaluatorService;
+import com.maduro.poker.unit.handmapper.HandMapperService;
+import com.maduro.poker.unit.handtype.HandTypeService;
+import com.maduro.poker.unit.handtypeviewer.HandTypeViewerSevice;
 
 public class MainService {
 
@@ -34,8 +34,8 @@ public class MainService {
 				new FileParserService(eventBus),
 				new HandMapperService(eventBus),
 				new HandEvaluatorService(eventBus, mainPlayer, aggressivityBehaviorEnum),
-				new StatisticHandTypeService(eventBus), 
-				new StatisticHandTypeViewerSevice(eventBus),
+				new HandTypeService(eventBus), 
+				new HandTypeViewerSevice(eventBus),
 
 		};
 
