@@ -1,55 +1,53 @@
+
 # Clean Architecture Study Series
 
-This series intends to implement some projects in which we will discuss the concepts regarding clean, decoupled and testable code strategies. 
-The main  purpose is to create structures that would be easy to read (understand), maintain and evolve.
+This series intends to apply a code hands-on approach to discuss the following code perspectives:
+* **Decoupling**
+* **Testability**
+* **Scalabiilty** 
+
+The inital questions that motivated this series were: 
+1. *Why sometimes my code is hard to mantain?*
+2. *Why is it so hard to implement tests?*
+3. *Why implementing tests seems to be too expesive?*
+
+Now, after some progress working on the problem, I would say: "**It is hard to implement tests in something that was not built to be tested!. The way that we follow to think and implement our solutions impacts directly on its testability and manutenibility.**"
+
+
+## The Problem 
+As a target problem, It was chosen something realtively simple: Read lines from a file, process them and  show the result.
+The problem itself is just a poker hands evaluation and show basic statistics.
 
 ## Episodes
 
-- **Episode I: Java SE - Service/DTO Model (Synchronicity) - (WE ARE HERE!)**
-- Episode II: Java SE - Service/DTO Model (Parallelism - EventBus) - https://github.com/wmaduro/clean-architecture-study/tree/master-eventbus
-- Episode III: SpringBoot Services (RESTFUL / Blocking) - https://github.com/wmaduro/clean-architecture-study-ms-modules/tree/master
-- Episode IV: SpringBoot Cloud MicroServices (RESTFUL / Non-Blocking) - (Coming Soon..)  
+- **Episode I: Decoupling the Problem Aiming Testability - (WE ARE HERE!) **
+- Episode II: Increasing decoupling (Event Queue) https://github.com/wmaduro/clean-architecture-study/tree/master-eventbus
+- Episode III: Increasing decoupling and scalability (SpringBoot Services Containarization) https://github.com/wmaduro/clean-architecture-study-ms-modules/tree/master
+- Episode IV: High sacalability approach (SpringBoot Cloud MicroServices) - Coming Soon... 
 
-## The Problem 
-**The problem itself is not the most important thing here.** Anyway, the purpose of the project is to analyze if the best hand had won or lost after a pre-flop all-in action.
-For that, it will consume a file containing the outcome of poker hands.
+# Episode I: Decoupling the Problem Aiming Testability
 
-The logic must:
-	
-1. Separate the hands in blocks containing the player's data (cards, earned values etc).
-2. Evaluate if the winner hand held the best cards (before pre-flop action).
-3. Show the result: 
-		total tied: ?
-		total best: ?
-		total worst: ?
-	
-Obs: Optionally, the evaluation service could be filtered by "player name" and/or "aggressivity behaviour".   
+The main idea is to breakdown the problem in small services. Each service produces its output object (DTO) that can be shared with other services as input parameters. **It is important to mention that "the service" must enclose all resources and logic needed to process its data and generate its outcome.**
 
-# Episode I: Java SE - Service/DTO Model (Synchronicity)
+### Decoupling
 
-The main idea is to breakdown the problem above in small units (Services). Each unit produces its output object (DTO) that can be shared with other units as input parameters. **It is important to mention that "the unit" must enclose all resources and logic needed to process its data and generate its outcome.**
+![alt text](https://raw.githubusercontent.com/wmaduro/clean-architecture-study/master-sync/md-files/the-problem.svg)
 
-### Project Overview
+The main problem was separated into smaller "services" to establish concise and clear boundaries.  
 
-![alt text](https://raw.githubusercontent.com/wmaduro/clean-architecture-study/master-sync/md-files/overview.svg)
-
-### Decoupled Units
-
-The main problem was separated into smaller "units" to establish concise and clear boundaries.  
-
-**File Unit (FileParserService)**
+**File Parser Service**
 - Responsibility: Process the file content and parse the lines to a list of hand's objects.
 - Consume: Hand's file.
 - Produce: List of hand's objects.
 
-**Mapper Unit (HandMapperService)**
+**Hand MapperService**
 
 - Responsibility: Organize the hand's objects in blocks per hand code.
 
 - Consume: Outcome of "File Unit".
 - Produce: Map of hand's grouped by hand code.
 
-**Evaluator Unit (HandEvaluatorService)**
+**Hand Evaluator Service**
 
 - Responsibility: 
     - Identify the best cards in the hand.
@@ -59,18 +57,23 @@ The main problem was separated into smaller "units" to establish concise and cle
 - Consume: Outcome of "Mapper Unit".
 - Produce: List of the winner's hands and its evaluation.
 
-**Statistic Hand Type Unit (StatisticHandTypeService)**
+**Statistic Hand Type Service**
 
 - Responsibility: Organize the data in separated groups of hand types ("Best Hand Win", "Worst Hand Win" and "Tied").
 
 - Consume: Outcome of "Evaluator Unit".
 - Produce: Hand Types Mapped.
 
-**Statistic Viewer Unit (StatisticHandTypeViewerSevice)**
+**Statistic Hand Type Viewer Sevice**
 
 - Responsibility: Show the evaluation statistic.
 
 - Consume: Outcome of "Statistic Hand Type".
+
+### Project Overview
+
+![alt text](https://raw.githubusercontent.com/wmaduro/clean-architecture-study/master-sync/md-files/overview.svg)
+
 
 ### Tests
 
@@ -78,15 +81,15 @@ The principle here is: "Each test must be atomic". So, It must have run in a com
 
 - **Unit Tests**
 
-	The unit tests aimed to cover each "service" scenario and all of its exceptions.
+    The unit tests aimed to cover each "service" scenario and all of its exceptions.
 
 - **Integrated Tests** (Not implemented yet*)
 
-	The integrated test is responsible for:
-	
-	- Create the simulation's input file.
-	- Process all services in the right order.
-	- Evaluate the outcome.
+    The integrated test is responsible for:
+    
+    - Create the simulation's input file.
+    - Process all services in the right order.
+    - Evaluate the outcome.
 
 ## How to run
 
