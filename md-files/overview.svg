@@ -387,18 +387,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="-126.93861"
-     inkscape:cy="670.05833"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="583.51977"
+     inkscape:cy="418.24861"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
-     inkscape:window-width="1914"
-     inkscape:window-height="984"
-     inkscape:window-x="3"
+     inkscape:window-width="945"
+     inkscape:window-height="978"
+     inkscape:window-x="960"
      inkscape:window-y="25"
-     inkscape:window-maximized="1" />
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -760,7 +760,7 @@
        xml:space="preserve"
        id="text999"
        style="font-size:10.5833px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;white-space:pre;shape-inside:url(#rect1001);fill:#808080;"
-       transform="translate(280.19804,19.143444)"><tspan
+       transform="translate(278.86169,19.410714)"><tspan
          x="-115.19336"
          y="-3.9995415"><tspan
            style="font-size:5.64444px;fill:#808080">File Parser</tspan></tspan></text>
@@ -774,7 +774,7 @@
        id="rect174-6"
        style="display:inline;fill:#f9f9f9;fill-opacity:0;stroke:#000000;stroke-width:0.264999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:0.53, 0.264999;stroke-dashoffset:0" />
     <text
-       transform="translate(274.60048,80.673325)"
+       transform="translate(272.72959,80.673325)"
        style="font-size:10.5833px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;white-space:pre;shape-inside:url(#rect1001-3);display:inline;fill:#808080;"
        id="text999-7"
        xml:space="preserve"><tspan
@@ -794,7 +794,7 @@
        xml:space="preserve"
        id="text999-7-5"
        style="font-size:10.5833px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;white-space:pre;shape-inside:url(#rect1001-3-5);display:inline;fill:#808080;"
-       transform="translate(268.40741,144.08105)"><tspan
+       transform="translate(266.80379,143.01197)"><tspan
          x="-115.19336"
          y="-3.9995415"><tspan
            style="font-size:5.64444px;fill:#808080">Hand Evaluator</tspan></tspan></text>
@@ -811,7 +811,7 @@
        xml:space="preserve"
        id="text999-7-1"
        style="font-size:10.5833px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;white-space:pre;shape-inside:url(#rect1001-3-6);display:inline;fill:#808080;"
-       transform="translate(246.02163,202.39166)"><tspan
+       transform="translate(258.85057,202.65893)"><tspan
          x="-115.19336"
          y="-3.9995415"><tspan
            style="font-size:5.64444px;fill:#808080">Statistic Hand Type</tspan></tspan></text>
@@ -828,7 +828,7 @@
        xml:space="preserve"
        id="text999-7-9"
        style="font-size:10.5833px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;white-space:pre;shape-inside:url(#rect1001-3-2);display:inline;fill:#808080;"
-       transform="translate(236.74452,259.74391)"><tspan
+       transform="translate(235.40817,259.47664)"><tspan
          x="-115.19336"
          y="-3.9995415"><tspan
            style="font-size:5.64444px;fill:#808080">Statistic Hand Type Viewer</tspan></tspan></text>
