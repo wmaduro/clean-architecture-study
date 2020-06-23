@@ -2,33 +2,34 @@
 
 # Clean Architecture Study Series
 
-This series intends to be a hands-on discussion about code problem-solving regarding the following perspectives:
+This series intends to be a hands-on discussion about ways to get a better code-design. It will mainly cover the following perspectives:
 * **Decoupling**
 * **Testability**
 * **Scalability** 
 
 The initial questions that motivated this series were: 
-1. *Why sometimes my code is hard to maintain?*
+1. *Why sometimes the code is hard to maintain?*
 2. *Why is it so hard to implement tests?*
 3. *Why implementing tests seems to be too expensive?*
 
-Now, after some progress working on the problem, I would say: "**It is hard to implement tests in code that was not built meant to be tested! The way we think and implement our solutions impacts directly on its testability and maintainability.**"
+Now, after some progress working on those dilemmas, I would guess that: "**It is hard to implement tests in code that was not built meant to be tested! The way we think and implement our solutions impacts directly on its testability and maintainability.**"
 
 
 ## The Problem 
 As a target problem, It was chosen something relatively simple: Read lines from a file, process them and show the result.
+
 The problem itself is just a poker hands evaluation and show basic statistics.
 
 ## Episodes
 
-- **Episode I: Decoupling the Problem Aiming Testability - (WE ARE HERE!) **
+- **Episode I: Decoupling the Problem Aiming Testability - (WE ARE HERE!)**
 - Episode II: Increasing Decoupling (Event Queue) https://github.com/wmaduro/clean-architecture-study/tree/master-eventbus
-- Episode III: Increasing Decoupling and Scalability (SpringBoot Services Containerization) https://github.com/wmaduro/clean-architecture-study-ms-modules/tree/master
-- Episode IV: High Scalability Approach (SpringBoot Cloud MicroServices) - Coming Soon... 
+- Episode III: Increasing Decoupling, Testability and Scalability (SpringBoot and Docker) https://github.com/wmaduro/clean-architecture-study-ms-modules/tree/master
+- Episode IV: High Scalability (SpringBoot Cloud MicroServices) - https://github.com/wmaduro/clean-architecture-study-ms-modules/tree/master-episodeIV 
 
 # Episode I: Decoupling the Problem Aiming Testability
 
-The main idea is to breakdown the problem in small services. Each service produces its output object (DTO) that can be shared with other services as input parameters. **It is important to mention that "the service" must enclose all resources and logic needed to process its data and generate its outcome.**
+The main idea of this episode is to breakdown the problem in small services. Each service produces its output object (DTO) that can be shared with other services as input parameters. **It is important to mention that "the service" must enclose all resources and logic needed to process its data and generate its outcome.**
 
 ### Decoupling
 
@@ -39,11 +40,11 @@ The main idea is to breakdown the problem in small services. Each service produc
 - Consume: Hand's file.
 - Produce: List of hand's objects.
 
-**Hand MapperService**
+**Hand Mapper Service**
 
 - Responsibility: Organize the hand's objects in blocks per hand code.
 
-- Consume: Outcome of "File Unit".
+- Consume: Outcome of "File Parser Service".
 - Produce: Map of hand's grouped by hand code.
 
 **Hand Evaluator Service**
@@ -53,21 +54,21 @@ The main idea is to breakdown the problem in small services. Each service produc
     - Evaluate if the best card had won the hand.
     - Filter the content by player name and/or aggressivity behaviour (optional).
 
-- Consume: Outcome of "Mapper Unit".
+- Consume: Outcome of "Hand Mapper Service".
 - Produce: List of the winner's hands and its evaluation.
 
-**Statistic Hand Type Service**
+**Hand Type Service**
 
-- Responsibility: Organize the data in separated groups of hand types ("Best Hand Win", "Worst Hand Win" and "Tied").
+- Responsibility: Organize the data in groups of hand types ("Best Hand Win", "Worst Hand Win" and "Tied").
 
-- Consume: Outcome of "Evaluator Unit".
+- Consume: Outcome of "Hand Evaluator Service".
 - Produce: Hand Types Mapped.
 
-**Statistic Hand Type Viewer Sevice**
+**Hand Type Viewer Service**
 
 - Responsibility: Show the evaluation statistic.
 
-- Consume: Outcome of "Statistic Hand Type".
+- Consume: Outcome of "Hand Type Service".
 
 ### Project Overview
 
@@ -76,19 +77,7 @@ The main idea is to breakdown the problem in small services. Each service produc
 
 ### Tests
 
-The principle here is: "Each test must be atomic". So, It must have run in a completely independent environment (when necessary, creating its resources).
-
-- **Unit Tests**
-
-    The unit tests aimed to cover each "service" scenario and all of its exceptions.
-
-- **Integrated Tests** (Not implemented yet*)
-
-    The integrated test is responsible for:
-    
-    - Create the simulation's input file.
-    - Process all services in the right order.
-    - Evaluate the outcome.
+In this episode, It was implemented only the unit tests.
 
 ## How to run
 
@@ -100,7 +89,7 @@ The principle here is: "Each test must be atomic". So, It must have run in a com
 1. Clone the repository: **git clone -b master-sync https://github.com/wmaduro/clean-architecture-study.git**
 2. Jump into the project folder: **cd clean-architecture-study**
 3. Change permission: **chmod +x mvnw**
-4. Compile using built-in maven  (notice that all unit tests will be triggered): **./mvnw clean compile package**
+4. Compile using built-in maven  (notice that all unit tests will be triggered): **./mvnw clean package**
 5. Run: **java -cp 'target/lib/*:target/clean-architecture-study-0.0.1-SNAPSHOT-jar-with-dependencies.jar' com.maduro.poker.ClenArchitectureStudyApplication**
 
 
@@ -110,10 +99,4 @@ Optionally, you can import the project in Eclipse 4+ with maven plugins installe
 
 1. Implement the integrated test.
 
-
-## Conclusion
-
-The only certainty we have is that our code will change in the future. So, if it would be hard to understand and maintain, most likely we will spend more time navigating in the chaotic code than implementing the changes.  
-     
-The most important message here is "Stop, Think, Plan and then Implement/Test".  
 
