@@ -5,11 +5,11 @@ import java.time.Instant;
 
 import com.maduro.poker.enums.AggressivityBehaviorEnum;
 import com.maduro.poker.unit.MainSyncService;
-import com.maduro.poker.unit.evaluator.HandEvaluatorService;
-import com.maduro.poker.unit.file.FileParserService;
-import com.maduro.poker.unit.mapper.HandMapperService;
-import com.maduro.poker.unit.statistic.StatisticHandTypeService;
-import com.maduro.poker.unit.statistic.view.StatisticHandTypeViewerSevice;
+import com.maduro.poker.unit.fileparser.FileParserService;
+import com.maduro.poker.unit.handevaluator.HandEvaluatorService;
+import com.maduro.poker.unit.handmapper.HandMapperService;
+import com.maduro.poker.unit.handtype.HandTypeService;
+import com.maduro.poker.unit.handtypeviewer.HandTypeViewerSevice;
 
 public class ClenArchitectureStudyApplication {
 
@@ -28,8 +28,8 @@ public class ClenArchitectureStudyApplication {
 					new FileParserService(filePath), 
 					new HandMapperService(),
 					new HandEvaluatorService(mainPlayer, aggressivityBehaviorEnum), 
-					new StatisticHandTypeService(), 
-					new StatisticHandTypeViewerSevice()
+					new HandTypeService(), 
+					new HandTypeViewerSevice()
 			);
 
 			System.out.println("done: " + Duration.between(start, Instant.now()).getSeconds() + " sec");

@@ -6,11 +6,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.maduro.poker.unit.evaluator.HandEvaluatorService;
-import com.maduro.poker.unit.file.FileParserService;
-import com.maduro.poker.unit.mapper.HandMapperService;
-import com.maduro.poker.unit.statistic.StatisticHandTypeService;
-import com.maduro.poker.unit.statistic.view.StatisticHandTypeViewerSevice;
+import com.maduro.poker.unit.fileparser.FileParserService;
+import com.maduro.poker.unit.handevaluator.HandEvaluatorService;
+import com.maduro.poker.unit.handmapper.HandMapperService;
+import com.maduro.poker.unit.handtype.HandTypeService;
+import com.maduro.poker.unit.handtypeviewer.HandTypeViewerSevice;
 
 public class MainSyncServiceTest {
 
@@ -21,9 +21,9 @@ public class MainSyncServiceTest {
 	@Mock
 	private HandEvaluatorService handEvaluatorService;
 	@Mock
-	private StatisticHandTypeService statisticHandTypeService;
+	private HandTypeService handTypeService;
 	@Mock
-	private StatisticHandTypeViewerSevice statisticViewService;
+	private HandTypeViewerSevice statisticViewService;
 
 	@BeforeEach
 	public void setup() {
@@ -33,13 +33,13 @@ public class MainSyncServiceTest {
 	@Test
 	void testAllServicesAreCalled() throws Exception {
 		
-		new MainSyncService().process(fileParserService, handMapperService, handEvaluatorService, statisticHandTypeService, statisticViewService);
+		new MainSyncService().process(fileParserService, handMapperService, handEvaluatorService, handTypeService, statisticViewService);
 		 
 		Mockito.verify(fileParserService).process();
 		Mockito.verify(handMapperService).process(null);
 		Mockito.verify(handEvaluatorService).process(null);
-		Mockito.verify(statisticHandTypeService).process(null);
-		Mockito.verify(statisticHandTypeService).process(null);
+		Mockito.verify(handTypeService).process(null);
+		Mockito.verify(handTypeService).process(null);
 		Mockito.verify(statisticViewService).showResult(null);
 
 	}
