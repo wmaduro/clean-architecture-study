@@ -1,29 +1,30 @@
 
+
 # Clean Architecture Study Series
 
-This series intends to apply a code hands-on approach to discuss the following code perspectives:
+This series intends to be a hands-on discussion about code problem-solving regarding the following perspectives:
 * **Decoupling**
 * **Testability**
-* **Scalabiilty** 
+* **Scalability** 
 
-The inital questions that motivated this series were: 
-1. *Why sometimes my code is hard to mantain?*
+The initial questions that motivated this series were: 
+1. *Why sometimes my code is hard to maintain?*
 2. *Why is it so hard to implement tests?*
-3. *Why implementing tests seems to be too expesive?*
+3. *Why implementing tests seems to be too expensive?*
 
-Now, after some progress working on the problem, I would say: "**It is hard to implement tests in something that was not built to be tested!. The way that we follow to think and implement our solutions impacts directly on its testability and manutenibility.**"
+Now, after some progress working on the problem, I would say: "**It is hard to implement tests in code that was not built meant to be tested! The way we think and implement our solutions impacts directly on its testability and maintainability.**"
 
 
 ## The Problem 
-As a target problem, It was chosen something realtively simple: Read lines from a file, process them and  show the result.
+As a target problem, It was chosen something relatively simple: Read lines from a file, process them and show the result.
 The problem itself is just a poker hands evaluation and show basic statistics.
 
 ## Episodes
 
 - **Episode I: Decoupling the Problem Aiming Testability - (WE ARE HERE!) **
-- Episode II: Increasing decoupling (Event Queue) https://github.com/wmaduro/clean-architecture-study/tree/master-eventbus
-- Episode III: Increasing decoupling and scalability (SpringBoot Services Containarization) https://github.com/wmaduro/clean-architecture-study-ms-modules/tree/master
-- Episode IV: High sacalability approach (SpringBoot Cloud MicroServices) - Coming Soon... 
+- Episode II: Increasing Decoupling (Event Queue) https://github.com/wmaduro/clean-architecture-study/tree/master-eventbus
+- Episode III: Increasing Decoupling and Scalability (SpringBoot Services Containerization) https://github.com/wmaduro/clean-architecture-study-ms-modules/tree/master
+- Episode IV: High Scalability Approach (SpringBoot Cloud MicroServices) - Coming Soon... 
 
 # Episode I: Decoupling the Problem Aiming Testability
 
@@ -32,8 +33,6 @@ The main idea is to breakdown the problem in small services. Each service produc
 ### Decoupling
 
 ![alt text](https://raw.githubusercontent.com/wmaduro/clean-architecture-study/master-sync/md-files/the-problem.svg)
-
-The main problem was separated into smaller "services" to establish concise and clear boundaries.  
 
 **File Parser Service**
 - Responsibility: Process the file content and parse the lines to a list of hand's objects.
