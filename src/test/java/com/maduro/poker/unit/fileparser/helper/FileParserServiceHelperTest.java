@@ -17,7 +17,6 @@ import org.junit.jupiter.api.io.TempDir;
 import com.maduro.poker.unit.fileparser.exception.FileCannotBeDirectoryException;
 import com.maduro.poker.unit.fileparser.exception.FileNotExistsException;
 import com.maduro.poker.unit.fileparser.exception.FileNotProvidedException;
-import com.maduro.poker.unit.fileparser.helper.FileParserServiceHelper;
 
 class FileParserServiceHelperTest {
 

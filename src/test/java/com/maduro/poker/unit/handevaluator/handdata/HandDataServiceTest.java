@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import com.maduro.poker.domain.CriticalHandOutcomeEnum;
 import com.maduro.poker.domain.HandDataModel;
-import com.maduro.poker.unit.handevaluator.handdata.HandDataService;
 import com.maduro.poker.unit.handevaluator.handdata.exception.WinnerHandNotFoundException;
 
 public class HandDataServiceTest {

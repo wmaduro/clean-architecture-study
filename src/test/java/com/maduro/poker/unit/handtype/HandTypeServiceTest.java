@@ -9,8 +9,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.maduro.poker.unit.handevaluator.HandEvaluatorServiceDTO;
-import com.maduro.poker.unit.handtype.HandTypeService;
-import com.maduro.poker.unit.handtype.HandTypeServiceDTO;
 import com.maduro.poker.unit.handtype.util.HandTypeServiceUtils;
 
 class HandTypeServiceTest {

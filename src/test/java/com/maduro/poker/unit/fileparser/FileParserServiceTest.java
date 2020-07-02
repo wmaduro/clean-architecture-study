@@ -8,13 +8,11 @@ import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import com.maduro.poker.domain.HandDataModel;
-import com.maduro.poker.unit.fileparser.FileParserService;
-import com.maduro.poker.unit.fileparser.FileParserServiceDTO;
 import com.maduro.poker.unit.fileparser.util.FileParsrServiceUtils;
 
 public class FileParserServiceTest {

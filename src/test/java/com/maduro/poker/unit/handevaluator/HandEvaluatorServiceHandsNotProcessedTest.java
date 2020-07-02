@@ -10,8 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import com.maduro.poker.domain.HandDataModel;
 import com.maduro.poker.enums.AggressivityBehaviorEnum;
-import com.maduro.poker.unit.handevaluator.HandEvaluatorService;
-import com.maduro.poker.unit.handevaluator.HandEvaluatorServiceDTO;
 import com.maduro.poker.unit.handevaluator.util.HandEvaluatorUtils;
 
 public class HandEvaluatorServiceHandsNotProcessedTest extends HandEvaluatorBaseTest{
