@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import com.google.common.eventbus.EventBus;
 import com.maduro.poker.domain.HandDataModel;
 import com.maduro.poker.unit.fileparser.FileParserServiceDTO;
-import com.maduro.poker.unit.handmapper.HandMapperService;
-import com.maduro.poker.unit.handmapper.HandMapperServiceDTO;
 import com.maduro.poker.unit.handmapper.util.HandMapperServiceUtils;
 
 public class HandMapperServiceTest {

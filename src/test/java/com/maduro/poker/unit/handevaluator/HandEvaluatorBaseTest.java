@@ -10,7 +10,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.google.common.eventbus.EventBus;
-import com.maduro.poker.unit.handevaluator.HandEvaluatorService;
 import com.maduro.poker.unit.handmapper.HandMapperServiceDTO;
 
 public abstract class HandEvaluatorBaseTest {

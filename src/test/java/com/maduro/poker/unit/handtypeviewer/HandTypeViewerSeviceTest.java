@@ -6,7 +6,6 @@ import org.mockito.Mockito;
 
 import com.google.common.eventbus.EventBus;
 import com.maduro.poker.unit.handtype.HandTypeServiceDTO;
-import com.maduro.poker.unit.handtypeviewer.HandTypeViewerSevice;
 
 class HandTypeViewerSeviceTest {
 

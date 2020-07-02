@@ -12,7 +12,6 @@ import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 
 import com.maduro.poker.unit.base.BaseTempDirServiceTest;
-import com.maduro.poker.unit.foldermonitor.FolderMonitorService;
 import com.maduro.poker.unit.foldermonitor.util.FolderMonitorServiceUtils;
 import com.maduro.poker.util.Utils;
 
