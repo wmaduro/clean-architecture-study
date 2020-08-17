@@ -3,10 +3,10 @@
 
 ## Episodes
 
-- Episode I: Decoupling the Problem Aiming Testability - https://github.com/wmaduro/clean-architecture-study/tree/master-sync
+- Episode I: [Decoupling the Problem Aiming Testability](https://github.com/wmaduro/clean-architecture-study/tree/master-sync)
 - **Episode II: Increasing Decoupling (Event Queue)  (WE ARE HERE!)**
-- Episode III: Increasing Decoupling, Testability and Scalability (SpringBoot and Docker) https://github.com/wmaduro/clean-architecture-study-ms-modules/tree/master
-- Episode IV: High Scalability (SpringBoot Cloud MicroServices) - https://github.com/wmaduro/clean-architecture-study-ms-modules/tree/master-episodeIV
+- Episode III: [Increasing Decoupling, Testability and Scalability (SpringBoot and Docker)](https://github.com/wmaduro/clean-architecture-study-ms-modules/tree/master)
+- Episode IV: [High Scalability (Spring Cloud MicroServices)](https://github.com/wmaduro/clean-architecture-study-ms-modules/tree/master-episodeIV)
 
 # Episode II: Increasing Decoupling (Event Queue)
 
